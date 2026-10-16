@@ -1,0 +1,130 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" width="1200" height="800">
+  <defs>
+    <filter id="cShadow" x="-2%" y="-2%" width="104%" height="106%">
+      <feDropShadow dx="0" dy="4" stdDeviation="8" flood-color="#0f172a" flood-opacity="0.06"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="800" fill="#f8fafc"/>
+
+  <!-- Top Navbar -->
+  <rect x="0" y="0" width="1200" height="60" fill="#ffffff" stroke="#e2e8f0" stroke-width="1"/>
+  <rect x="25" y="12" width="36" height="36" rx="10" fill="#1e40af"/>
+  <text x="43" y="36" text-anchor="middle" fill="#ffffff" font-family="system-ui, sans-serif" font-weight="900" font-size="16">MB</text>
+  <text x="75" y="30" fill="#0f172a" font-family="system-ui, sans-serif" font-weight="800" font-size="14">Megabyte System</text>
+  <text x="75" y="44" fill="#64748b" font-family="system-ui, sans-serif" font-size="10">Executive Leadership &amp; CEO Analytics</text>
+
+  <!-- Role Switcher -->
+  <rect x="420" y="14" width="360" height="32" rx="8" fill="#f1f5f9"/>
+  <rect x="422" y="16" width="115" height="28" rx="6" fill="#ffffff"/>
+  <text x="479" y="34" text-anchor="middle" fill="#1e40af" font-family="system-ui, sans-serif" font-size="11" font-weight="bold">CEO Executive</text>
+  <text x="595" y="34" text-anchor="middle" fill="#64748b" font-family="system-ui, sans-serif" font-size="11">Manager Panel</text>
+  <text x="715" y="34" text-anchor="middle" fill="#64748b" font-family="system-ui, sans-serif" font-size="11">Employee Form</text>
+
+  <!-- Profile badge -->
+  <rect x="1000" y="14" width="175" height="32" rx="16" fill="#dbeafe"/>
+  <circle cx="1018" cy="30" r="10" fill="#1e40af"/>
+  <text x="1018" y="34" text-anchor="middle" fill="#ffffff" font-family="system-ui, sans-serif" font-size="10" font-weight="bold">C</text>
+  <text x="1035" y="34" fill="#1e40af" font-family="system-ui, sans-serif" font-size="11" font-weight="bold">Managing Director</text>
+
+  <!-- Executive KPI Row -->
+  <g transform="translate(30, 80)">
+    <!-- KPI 1 -->
+    <rect x="0" y="0" width="265" height="100" rx="14" fill="#ffffff" stroke="#e2e8f0" stroke-width="1" filter="url(#cShadow)"/>
+    <text x="20" y="30" fill="#64748b" font-family="system-ui, sans-serif" font-size="11" font-weight="bold">TOTAL WORK HOURS (TODAY)</text>
+    <text x="20" y="65" fill="#0f172a" font-family="system-ui, sans-serif" font-size="24" font-weight="900">42 Hours</text>
+    <text x="20" y="85" fill="#10b981" font-family="system-ui, sans-serif" font-size="11" font-weight="600">318 Hours logged this month</text>
+
+    <!-- KPI 2 -->
+    <rect x="290" y="0" width="265" height="100" rx="14" fill="#ffffff" stroke="#e2e8f0" stroke-width="1" filter="url(#cShadow)"/>
+    <text x="310" y="30" fill="#64748b" font-family="system-ui, sans-serif" font-size="11" font-weight="bold">ACTIVE TEAM MEMBERS</text>
+    <text x="310" y="65" fill="#0f172a" font-family="system-ui, sans-serif" font-size="24" font-weight="900">12 Personnel</text>
+    <text x="310" y="85" fill="#64748b" font-family="system-ui, sans-serif" font-size="11">100% account active rate</text>
+
+    <!-- KPI 3 -->
+    <rect x="580" y="0" width="265" height="100" rx="14" fill="#ffffff" stroke="#e2e8f0" stroke-width="1" filter="url(#cShadow)"/>
+    <text x="600" y="30" fill="#64748b" font-family="system-ui, sans-serif" font-size="11" font-weight="bold">AVERAGE PROJECTS PROGRESS</text>
+    <text x="600" y="65" fill="#0f172a" font-family="system-ui, sans-serif" font-size="24" font-weight="900">68%</text>
+    <text x="600" y="85" fill="#2563eb" font-family="system-ui, sans-serif" font-size="11" font-weight="600">Across 3 active company projects</text>
+
+    <!-- KPI 4 -->
+    <rect x="870" y="0" width="270" height="100" rx="14" fill="#ffffff" stroke="#e2e8f0" stroke-width="1" filter="url(#cShadow)"/>
+    <text x="890" y="30" fill="#64748b" font-family="system-ui, sans-serif" font-size="11" font-weight="bold">OPEN CRITICAL BLOCKERS</text>
+    <text x="890" y="65" fill="#ef4444" font-family="system-ui, sans-serif" font-size="24" font-weight="900">0 Items</text>
+    <text x="890" y="85" fill="#059669" font-family="system-ui, sans-serif" font-size="11" font-weight="600">All technical roadblocks cleared</text>
+  </g>
+
+  <!-- Performance Comparison Table Card -->
+  <g transform="translate(30, 205)">
+    <rect width="1140" height="340" rx="16" fill="#ffffff" stroke="#e2e8f0" stroke-width="1" filter="url(#cShadow)"/>
+    <text x="25" y="35" fill="#0f172a" font-family="system-ui, sans-serif" font-size="15" font-weight="bold">Employee Performance and Activity Comparison</text>
+    <text x="25" y="55" fill="#64748b" font-family="system-ui, sans-serif" font-size="11">Comparative analysis of verified hours, completed tasks, and blocker reports</text>
+
+    <!-- Table Header -->
+    <rect x="25" y="75" width="1090" height="36" rx="8" fill="#f8fafc"/>
+    <text x="45" y="98" fill="#475569" font-family="system-ui, sans-serif" font-size="11" font-weight="bold">Employee Name</text>
+    <text x="240" y="98" fill="#475569" font-family="system-ui, sans-serif" font-size="11" font-weight="bold">Department</text>
+    <text x="420" y="98" fill="#475569" font-family="system-ui, sans-serif" font-size="11" font-weight="bold">System Role</text>
+    <text x="570" y="98" fill="#475569" font-family="system-ui, sans-serif" font-size="11" font-weight="bold">Logged Hours</text>
+    <text x="700" y="98" fill="#475569" font-family="system-ui, sans-serif" font-size="11" font-weight="bold">Approved Logs</text>
+    <text x="830" y="98" fill="#475569" font-family="system-ui, sans-serif" font-size="11" font-weight="bold">Tasks Completed</text>
+    <text x="960" y="98" fill="#475569" font-family="system-ui, sans-serif" font-size="11" font-weight="bold">Relative Output</text>
+
+    <!-- Row 1 -->
+    <text x="45" y="140" fill="#0f172a" font-family="system-ui, sans-serif" font-size="12" font-weight="bold">Seyed Nima Rounaghi</text>
+    <text x="240" y="140" fill="#64748b" font-family="system-ui, sans-serif" font-size="12">Frontend Engineering</text>
+    <rect x="420" y="125" width="65" height="22" rx="11" fill="#dbeafe"/>
+    <text x="452" y="140" text-anchor="middle" fill="#1e40af" font-family="system-ui, sans-serif" font-size="10" font-weight="bold">CEO</text>
+    <text x="570" y="140" fill="#0f172a" font-family="system-ui, sans-serif" font-size="12" font-weight="bold">48 Hours</text>
+    <text x="700" y="140" fill="#059669" font-family="system-ui, sans-serif" font-size="12" font-weight="bold">14 / 14</text>
+    <text x="830" y="140" fill="#2563eb" font-family="system-ui, sans-serif" font-size="12" font-weight="bold">8 Tasks</text>
+    <rect x="960" y="132" width="130" height="8" rx="4" fill="#e2e8f0"/>
+    <rect x="960" y="132" width="130" height="8" rx="4" fill="#2563eb"/>
+
+    <!-- Row 2 -->
+    <text x="45" y="185" fill="#0f172a" font-family="system-ui, sans-serif" font-size="12" font-weight="bold">Mohammad Hosseini</text>
+    <text x="240" y="185" fill="#64748b" font-family="system-ui, sans-serif" font-size="12">DevOps and Security</text>
+    <rect x="420" y="170" width="75" height="22" rx="11" fill="#fef3c7"/>
+    <text x="457" y="185" text-anchor="middle" fill="#b45309" font-family="system-ui, sans-serif" font-size="10" font-weight="bold">Manager</text>
+    <text x="570" y="185" fill="#0f172a" font-family="system-ui, sans-serif" font-size="12" font-weight="bold">42 Hours</text>
+    <text x="700" y="185" fill="#059669" font-family="system-ui, sans-serif" font-size="12" font-weight="bold">11 / 12</text>
+    <text x="830" y="185" fill="#2563eb" font-family="system-ui, sans-serif" font-size="12" font-weight="bold">6 Tasks</text>
+    <rect x="960" y="177" width="130" height="8" rx="4" fill="#e2e8f0"/>
+    <rect x="960" y="177" width="112" height="8" rx="4" fill="#2563eb"/>
+
+    <!-- Row 3 -->
+    <text x="45" y="230" fill="#0f172a" font-family="system-ui, sans-serif" font-size="12" font-weight="bold">Ali Rezaei</text>
+    <text x="240" y="230" fill="#64748b" font-family="system-ui, sans-serif" font-size="12">Backend Development</text>
+    <rect x="420" y="215" width="75" height="22" rx="11" fill="#f1f5f9"/>
+    <text x="457" y="230" text-anchor="middle" fill="#475569" font-family="system-ui, sans-serif" font-size="10" font-weight="bold">Employee</text>
+    <text x="570" y="230" fill="#0f172a" font-family="system-ui, sans-serif" font-size="12" font-weight="bold">38 Hours</text>
+    <text x="700" y="230" fill="#059669" font-family="system-ui, sans-serif" font-size="12" font-weight="bold">9 / 10</text>
+    <text x="830" y="230" fill="#2563eb" font-family="system-ui, sans-serif" font-size="12" font-weight="bold">5 Tasks</text>
+    <rect x="960" y="222" width="130" height="8" rx="4" fill="#e2e8f0"/>
+    <rect x="960" y="222" width="98" height="8" rx="4" fill="#2563eb"/>
+  </g>
+
+  <!-- Bottom Strip: RBAC & Official Export -->
+  <g transform="translate(30, 565)">
+    <rect width="1140" height="205" rx="16" fill="#ffffff" stroke="#e2e8f0" stroke-width="1" filter="url(#cShadow)"/>
+    <text x="25" y="35" fill="#0f172a" font-family="system-ui, sans-serif" font-size="15" font-weight="bold">Enterprise Access Control &amp; UTF-8 BOM Excel Export</text>
+    <text x="25" y="55" fill="#64748b" font-family="system-ui, sans-serif" font-size="11">Only Managing Director can elevate user privileges and export officially signed activity logs</text>
+
+    <!-- Role changer snippet -->
+    <rect x="25" y="80" width="600" height="95" rx="12" fill="#f8fafc" stroke="#e2e8f0"/>
+    <text x="45" y="105" fill="#0f172a" font-family="system-ui, sans-serif" font-size="12" font-weight="bold">Role-Based Access Control (RBAC Policy)</text>
+    <text x="45" y="125" fill="#64748b" font-family="system-ui, sans-serif" font-size="11">Promote / demote staff dynamically: Employee &lt;=&gt; Manager &lt;=&gt; CEO</text>
+    <rect x="45" y="138" width="120" height="26" rx="6" fill="#ffffff" stroke="#cbd5e1"/>
+    <text x="105" y="155" text-anchor="middle" fill="#0f172a" font-family="system-ui, sans-serif" font-size="10" font-weight="bold">Manager Access</text>
+
+    <!-- Export buttons -->
+    <rect x="660" y="90" width="220" height="46" rx="10" fill="#059669"/>
+    <text x="770" y="118" text-anchor="middle" fill="#ffffff" font-family="system-ui, sans-serif" font-size="12" font-weight="bold">Export Excel (.CSV UTF-8 BOM)</text>
+
+    <rect x="895" y="90" width="220" height="46" rx="10" fill="#1e293b"/>
+    <text x="1005" y="118" text-anchor="middle" fill="#ffffff" font-family="system-ui, sans-serif" font-size="12" font-weight="bold">Print Official Report / PDF</text>
+
+    <text x="660" y="155" fill="#64748b" font-family="system-ui, sans-serif" font-size="10">Includes Persian characters BOM header to avoid garbled text in Microsoft Excel</text>
+  </g>
+</svg>

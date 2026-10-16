@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" width="1200" height="800">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f8fafc"/>
+      <stop offset="100%" stop-color="#e2e8f0"/>
+    </linearGradient>
+    <linearGradient id="brand" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1e40af"/>
+      <stop offset="100%" stop-color="#2563eb"/>
+    </linearGradient>
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="115%">
+      <feDropShadow dx="0" dy="10" stdDeviation="15" flood-color="#0f172a" flood-opacity="0.08"/>
+    </filter>
+  </defs>
+
+  <rect width="1200" height="800" fill="url(#bg)"/>
+
+  <!-- Top bar mockup -->
+  <rect x="0" y="0" width="1200" height="40" fill="#0f172a"/>
+  <circle cx="30" cy="20" r="6" fill="#ef4444"/>
+  <circle cx="50" cy="20" r="6" fill="#f59e0b"/>
+  <circle cx="70" cy="20" r="6" fill="#10b981"/>
+  <text x="600" y="25" text-anchor="middle" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="12">Megabyte System - Member Activity Portal | Authentication Gate</text>
+
+  <!-- Centered Auth Card -->
+  <g transform="translate(375, 90)">
+    <!-- Brand Icon -->
+    <rect x="195" y="0" width="60" height="60" rx="16" fill="url(#brand)"/>
+    <text x="225" y="38" text-anchor="middle" fill="#ffffff" font-family="system-ui, sans-serif" font-weight="900" font-size="24">MB</text>
+
+    <!-- Titles -->
+    <text x="225" y="90" text-anchor="middle" fill="#0f172a" font-family="system-ui, sans-serif" font-weight="800" font-size="22">Megabyte System</text>
+    <text x="225" y="112" text-anchor="middle" fill="#64748b" font-family="system-ui, sans-serif" font-size="13">Enterprise Performance and Activity Management</text>
+
+    <!-- Card Background -->
+    <rect x="0" y="135" width="450" height="500" rx="24" fill="#ffffff" stroke="#e2e8f0" stroke-width="1" filter="url(#shadow)"/>
+
+    <!-- Tabs -->
+    <rect x="30" y="165" width="390" height="42" rx="10" fill="#f1f5f9"/>
+    <rect x="34" y="169" width="190" height="34" rx="8" fill="#ffffff" filter="url(#shadow)"/>
+    <text x="129" y="191" text-anchor="middle" fill="#1e3a8a" font-family="system-ui, sans-serif" font-weight="700" font-size="13">Sign In</text>
+    <text x="325" y="191" text-anchor="middle" fill="#64748b" font-family="system-ui, sans-serif" font-weight="600" font-size="13">Create Account</text>
+
+    <!-- Input 1: Email -->
+    <text x="420" y="240" text-anchor="end" fill="#334155" font-family="system-ui, sans-serif" font-weight="600" font-size="12">Corporate Email Address</text>
+    <rect x="30" y="250" width="390" height="44" rx="10" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+    <text x="45" y="277" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="13">user@megabyte.ir</text>
+
+    <!-- Input 2: Password -->
+    <text x="420" y="325" text-anchor="end" fill="#334155" font-family="system-ui, sans-serif" font-weight="600" font-size="12">Password</text>
+    <rect x="30" y="335" width="390" height="44" rx="10" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+    <text x="45" y="362" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="14">••••••••••••</text>
+
+    <!-- Submit Button -->
+    <rect x="30" y="410" width="390" height="46" rx="12" fill="url(#brand)"/>
+    <text x="225" y="438" text-anchor="middle" fill="#ffffff" font-family="system-ui, sans-serif" font-weight="700" font-size="14">Enter Workspace</text>
+
+    <!-- Notice Box -->
+    <rect x="30" y="480" width="390" height="65" rx="12" fill="#eff6ff" stroke="#bfdbfe" stroke-width="1"/>
+    <text x="225" y="505" text-anchor="middle" fill="#1e40af" font-family="system-ui, sans-serif" font-weight="700" font-size="11">Automated Role Assignment Policy</text>
+    <text x="225" y="525" text-anchor="middle" fill="#3b82f6" font-family="system-ui, sans-serif" font-size="11">First registered user is elevated to Executive Director (CEO)</text>
+
+    <!-- Security Footer -->
+    <text x="225" y="585" text-anchor="middle" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="11">Protected by PostgreSQL Row Level Security (RLS)</text>
+  </g>
+</svg>

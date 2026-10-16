@@ -1,0 +1,145 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" width="1200" height="800">
+  <defs>
+    <linearGradient id="stopwatchBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#1e3a8a"/>
+    </linearGradient>
+    <linearGradient id="primaryBtn" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1d4ed8"/>
+      <stop offset="100%" stop-color="#2563eb"/>
+    </linearGradient>
+    <filter id="cardShadow" x="-2%" y="-2%" width="104%" height="106%">
+      <feDropShadow dx="0" dy="4" stdDeviation="8" flood-color="#0f172a" flood-opacity="0.05"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="800" fill="#f8fafc"/>
+
+  <!-- Top Navbar -->
+  <rect x="0" y="0" width="1200" height="60" fill="#ffffff" stroke="#e2e8f0" stroke-width="1"/>
+  <rect x="25" y="12" width="36" height="36" rx="10" fill="#1e40af"/>
+  <text x="43" y="36" text-anchor="middle" fill="#ffffff" font-family="system-ui, sans-serif" font-weight="900" font-size="16">MB</text>
+  <text x="75" y="30" fill="#0f172a" font-family="system-ui, sans-serif" font-weight="800" font-size="14">Megabyte System</text>
+  <text x="75" y="44" fill="#64748b" font-family="system-ui, sans-serif" font-size="10">Employee Activity Panel</text>
+
+  <!-- Navbar Profile -->
+  <rect x="1000" y="14" width="175" height="32" rx="16" fill="#f1f5f9"/>
+  <circle cx="1018" cy="30" r="10" fill="#2563eb"/>
+  <text x="1018" y="34" text-anchor="middle" fill="#ffffff" font-family="system-ui, sans-serif" font-size="10" font-weight="bold">E</text>
+  <text x="1035" y="34" fill="#1e293b" font-family="system-ui, sans-serif" font-size="11" font-weight="600">Software Engineer</text>
+  <rect x="1120" y="18" width="50" height="24" rx="12" fill="#dbeafe"/>
+  <text x="1145" y="34" text-anchor="middle" fill="#1e40af" font-family="system-ui, sans-serif" font-size="10" font-weight="bold">Active</text>
+
+  <!-- Sidebar -->
+  <rect x="0" y="60" width="220" height="740" fill="#ffffff" stroke="#e2e8f0" stroke-width="1"/>
+  <text x="25" y="90" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="10" font-weight="bold">WORKSPACE NAVIGATION</text>
+
+  <rect x="15" y="105" width="190" height="36" rx="8" fill="#eff6ff"/>
+  <text x="35" y="128" fill="#1e40af" font-family="system-ui, sans-serif" font-size="12" font-weight="bold">Log Daily Activity</text>
+
+  <text x="35" y="165" fill="#64748b" font-family="system-ui, sans-serif" font-size="12">Assigned Tasks</text>
+  <text x="35" y="200" fill="#64748b" font-family="system-ui, sans-serif" font-size="12">Activity Records</text>
+  <text x="35" y="235" fill="#64748b" font-family="system-ui, sans-serif" font-size="12">Manager Feedback</text>
+
+  <!-- Main Content Grid -->
+  <!-- Left Column: Persistent Stopwatch -->
+  <g transform="translate(245, 80)">
+    <rect width="280" height="200" rx="16" fill="url(#stopwatchBg)" filter="url(#cardShadow)"/>
+    <text x="20" y="32" fill="#93c5fd" font-family="system-ui, sans-serif" font-size="12" font-weight="bold">Persistent Work Stopwatch</text>
+    <rect x="195" y="16" width="65" height="20" rx="10" fill="#1e293b"/>
+    <text x="227" y="30" text-anchor="middle" fill="#38bdf8" font-family="system-ui, sans-serif" font-size="9">Local Sync</text>
+
+    <text x="140" y="105" text-anchor="middle" fill="#ffffff" font-family="monospace" font-size="42" font-weight="bold">02:45:18</text>
+    <text x="140" y="125" text-anchor="middle" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="11">Time tracking in progress</text>
+
+    <!-- Stopwatch buttons -->
+    <rect x="20" y="145" width="115" height="38" rx="10" fill="#059669"/>
+    <text x="77" y="168" text-anchor="middle" fill="#ffffff" font-family="system-ui, sans-serif" font-size="12" font-weight="bold">Pause Work</text>
+
+    <rect x="145" y="145" width="115" height="38" rx="10" fill="#2563eb"/>
+    <text x="202" y="168" text-anchor="middle" fill="#ffffff" font-family="system-ui, sans-serif" font-size="11" font-weight="bold">Apply to Form</text>
+  </g>
+
+  <!-- Assigned Tasks Summary Box -->
+  <g transform="translate(245, 300)">
+    <rect width="280" height="420" rx="16" fill="#ffffff" stroke="#e2e8f0" stroke-width="1" filter="url(#cardShadow)"/>
+    <text x="20" y="35" fill="#0f172a" font-family="system-ui, sans-serif" font-size="13" font-weight="bold">My Assigned Tasks</text>
+    <rect x="235" y="22" width="25" height="18" rx="9" fill="#dbeafe"/>
+    <text x="247" y="34" text-anchor="middle" fill="#1e40af" font-family="system-ui, sans-serif" font-size="10" font-weight="bold">3</text>
+
+    <!-- Task Item 1 -->
+    <rect x="15" y="55" width="250" height="90" rx="12" fill="#f8fafc" stroke="#e2e8f0"/>
+    <text x="25" y="78" fill="#0f172a" font-family="system-ui, sans-serif" font-size="11" font-weight="bold">Query Optimization</text>
+    <rect x="185" y="65" width="70" height="18" rx="6" fill="#fef2f2"/>
+    <text x="220" y="77" text-anchor="middle" fill="#991b1b" font-family="system-ui, sans-serif" font-size="9" font-weight="bold">Critical</text>
+    <text x="25" y="100" fill="#64748b" font-family="system-ui, sans-serif" font-size="10">Tune slow postgres joins in logs table</text>
+    <rect x="25" y="115" width="90" height="18" rx="6" fill="#ecfdf5"/>
+    <text x="70" y="127" text-anchor="middle" fill="#065f46" font-family="system-ui, sans-serif" font-size="9" font-weight="bold">In Progress</text>
+
+    <!-- Task Item 2 -->
+    <rect x="15" y="155" width="250" height="90" rx="12" fill="#f8fafc" stroke="#e2e8f0"/>
+    <text x="25" y="178" fill="#0f172a" font-family="system-ui, sans-serif" font-size="11" font-weight="bold">RLS Policy Verification</text>
+    <rect x="185" y="165" width="70" height="18" rx="6" fill="#fef3c7"/>
+    <text x="220" y="177" text-anchor="middle" fill="#92400e" font-family="system-ui, sans-serif" font-size="9" font-weight="bold">Medium</text>
+    <text x="25" y="200" fill="#64748b" font-family="system-ui, sans-serif" font-size="10">Validate auth.uid match on work logs</text>
+    <rect x="25" y="215" width="75" height="18" rx="6" fill="#f1f5f9"/>
+    <text x="62" y="227" text-anchor="middle" fill="#475569" font-family="system-ui, sans-serif" font-size="9" font-weight="bold">Todo</text>
+  </g>
+
+  <!-- Right Column: Activity Logging Form -->
+  <g transform="translate(545, 80)">
+    <rect width="630" height="640" rx="20" fill="#ffffff" stroke="#e2e8f0" stroke-width="1" filter="url(#cardShadow)"/>
+    <text x="30" y="40" fill="#0f172a" font-family="system-ui, sans-serif" font-size="16" font-weight="bold">Daily Activity and Effort Submission</text>
+    <text x="30" y="60" fill="#64748b" font-family="system-ui, sans-serif" font-size="12">All inputs are secured via PostgreSQL RLS policies</text>
+
+    <!-- Form row 1: Project & Date -->
+    <text x="30" y="95" fill="#334155" font-family="system-ui, sans-serif" font-size="11" font-weight="bold">Target Project</text>
+    <rect x="30" y="105" width="275" height="40" rx="8" fill="#ffffff" stroke="#cbd5e1"/>
+    <text x="45" y="130" fill="#0f172a" font-family="system-ui, sans-serif" font-size="12">Cloud Platform Architecture (45% Done)</text>
+
+    <text x="325" y="95" fill="#334155" font-family="system-ui, sans-serif" font-size="11" font-weight="bold">Activity Date</text>
+    <rect x="325" y="105" width="275" height="40" rx="8" fill="#ffffff" stroke="#cbd5e1"/>
+    <text x="340" y="130" fill="#0f172a" font-family="system-ui, sans-serif" font-size="12">1405/07/25 - Today</text>
+
+    <!-- Form row 2: Duration -->
+    <text x="30" y="170" fill="#334155" font-family="system-ui, sans-serif" font-size="11" font-weight="bold">Logged Duration</text>
+    <rect x="30" y="180" width="130" height="40" rx="8" fill="#ffffff" stroke="#cbd5e1"/>
+    <text x="45" y="205" fill="#0f172a" font-family="system-ui, sans-serif" font-size="12" font-weight="bold">2 Hours</text>
+    <rect x="175" y="180" width="130" height="40" rx="8" fill="#ffffff" stroke="#cbd5e1"/>
+    <text x="190" y="205" fill="#0f172a" font-family="system-ui, sans-serif" font-size="12" font-weight="bold">45 Minutes</text>
+
+    <!-- Progress Slider -->
+    <text x="325" y="170" fill="#334155" font-family="system-ui, sans-serif" font-size="11" font-weight="bold">Estimated Task Progress (85%)</text>
+    <rect x="325" y="195" width="275" height="8" rx="4" fill="#e2e8f0"/>
+    <rect x="325" y="195" width="235" height="8" rx="4" fill="#2563eb"/>
+    <circle cx="560" cy="199" r="8" fill="#1e40af"/>
+
+    <!-- Form row 3: Summary -->
+    <text x="30" y="245" fill="#334155" font-family="system-ui, sans-serif" font-size="11" font-weight="bold">Executive Summary of Accomplishments</text>
+    <rect x="30" y="255" width="570" height="70" rx="10" fill="#ffffff" stroke="#cbd5e1"/>
+    <text x="45" y="280" fill="#334155" font-family="system-ui, sans-serif" font-size="12">Configured automatic profile triggers and migrated schema into PostgreSQL.</text>
+    <text x="45" y="300" fill="#334155" font-family="system-ui, sans-serif" font-size="12">Validated role boundaries across employee, manager, and ceo roles.</text>
+
+    <!-- Subtasks checklist -->
+    <text x="30" y="350" fill="#334155" font-family="system-ui, sans-serif" font-size="11" font-weight="bold">Sub-Task Checklist (Interactive JSONB)</text>
+    <rect x="30" y="360" width="570" height="85" rx="10" fill="#f8fafc" stroke="#e2e8f0"/>
+    <rect x="45" y="375" width="16" height="16" rx="4" fill="#10b981"/>
+    <text x="49" y="387" fill="#ffffff" font-family="system-ui, sans-serif" font-size="10" font-weight="bold">✓</text>
+    <text x="70" y="388" fill="#334155" font-family="system-ui, sans-serif" font-size="12">Executed database migration script</text>
+
+    <rect x="45" y="405" width="16" height="16" rx="4" fill="#10b981"/>
+    <text x="49" y="417" fill="#ffffff" font-family="system-ui, sans-serif" font-size="10" font-weight="bold">✓</text>
+    <text x="70" y="418" fill="#334155" font-family="system-ui, sans-serif" font-size="12">Configured GitHub Pages deployment workflow</text>
+
+    <!-- Blocker Section -->
+    <rect x="30" y="460" width="570" height="95" rx="12" fill="#fff1f2" stroke="#fecdd3"/>
+    <text x="50" y="485" fill="#9f1239" font-family="system-ui, sans-serif" font-size="12" font-weight="bold">Issue Flagged: Network Blocker (Severity: Medium)</text>
+    <text x="50" y="505" fill="#be123c" font-family="system-ui, sans-serif" font-size="11">Playwright headless driver download timed out due to external proxy restrictions.</text>
+    <text x="50" y="530" fill="#065f46" font-family="system-ui, sans-serif" font-size="11" font-weight="bold">Manager Instruction: Proceed with local browser verification and SVG visual assets.</text>
+
+    <!-- Submit Button -->
+    <rect x="400" y="575" width="200" height="44" rx="12" fill="url(#primaryBtn)"/>
+    <text x="500" y="602" text-anchor="middle" fill="#ffffff" font-family="system-ui, sans-serif" font-size="13" font-weight="bold">Submit Activity Log</text>
+  </g>
+</svg>
