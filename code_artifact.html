@@ -1,0 +1,2696 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مگابایت سیستم | سامانه جامع ثبت فعالیت و مدیریت عملکرد کارکنان</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Vazirmatn -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Vazirmatn', 'sans-serif'],
+                    },
+                    colors: {
+                        mega: {
+                            50: '#f0f7ff',
+                            100: '#e0effe',
+                            200: '#bae0fd',
+                            300: '#7cc8fb',
+                            400: '#36aaf5',
+                            500: '#0c8ee6',
+                            600: '#0284c7',
+                            700: '#1d4ed8',
+                            800: '#1e40af',
+                            900: '#1e3a8a',
+                            950: '#172554',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        * {
+            font-family: 'Vazirmatn', sans-serif;
+            box-sizing: border-box;
+        }
+        body {
+            background-color: #f0f7ff;
+            color: #0f172a;
+            overflow-x: hidden;
+        }
+        /* Custom Scrollbar Blue/White */
+        ::-webkit-scrollbar {
+            width: 7px;
+            height: 7px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #e0effe;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #36aaf5;
+            border-radius: 9999px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #0284c7;
+        }
+        /* Smooth Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-in {
+            animation: fadeIn 0.28s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+        @keyframes pulseRing {
+            0% { box-shadow: 0 0 0 0 rgba(2, 132, 199, 0.5); }
+            70% { box-shadow: 0 0 0 10px rgba(2, 132, 199, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(2, 132, 199, 0); }
+        }
+        .timer-active-pulse {
+            animation: pulseRing 2s infinite;
+        }
+        /* Custom Range Slider */
+        input[type=range] {
+            -webkit-appearance: none;
+            background: transparent;
+        }
+        input[type=range]::-webkit-slider-runnable-track {
+            height: 8px;
+            border-radius: 999px;
+            background: #dbeafe;
+        }
+        input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            height: 22px;
+            width: 22px;
+            border-radius: 50%;
+            background: #1d4ed8;
+            border: 3px solid #ffffff;
+            box-shadow: 0 2px 6px rgba(29, 78, 216, 0.4);
+            margin-top: -7px;
+            cursor: pointer;
+            transition: transform 0.15s ease;
+        }
+        input[type=range]::-webkit-slider-thumb:hover {
+            transform: scale(1.15);
+        }
+        /* Print Styles */
+        @media print {
+            .no-print {
+                display: none !important;
+            }
+            body {
+                background: #ffffff !important;
+            }
+            .print-full {
+                width: 100% !important;
+                margin: 0 !important;
+                padding: 0 !important;
+            }
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col selection:bg-blue-600 selection:text-white">
+
+    <!-- Top Sticky Header -->
+    <header class="sticky top-0 z-40 bg-gradient-to-l from-mega-900 via-mega-800 to-mega-600 text-white shadow-lg no-print">
+        <div class="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-wrap items-center justify-between py-3 gap-3">
+                
+                <!-- Brand & Mobile Drawer Trigger -->
+                <div class="flex items-center gap-3">
+                    <button id="mobileMenuBtn" onclick="toggleMobileSidebar()" class="lg:hidden p-2.5 rounded-xl bg-white/10 hover:bg-white/20 active:scale-95 transition text-white" aria-label="منو">
+                        <i class="fa-solid fa-bars text-lg"></i>
+                    </button>
+                    <div class="flex items-center gap-3">
+                        <div class="w-11 h-11 rounded-2xl bg-white text-mega-800 flex items-center justify-center shadow-md font-black text-xl border-2 border-blue-200">
+                            <i class="fa-solid fa-cubes-stacked text-mega-600"></i>
+                        </div>
+                        <div>
+                            <div class="flex items-center gap-2">
+                                <h1 class="font-extrabold text-base sm:text-lg tracking-tight">شرکت مگابایت سیستم</h1>
+                                <span class="hidden sm:inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-semibold bg-sky-400/20 text-sky-100 border border-sky-300/30">
+                                    نسخه سازمانی ۳.۲
+                                </span>
+                            </div>
+                            <p class="text-xs text-blue-100/90">سامانه هوشمند ثبت کارکرد، مدیریت تسک‌ها و رفع موانع کاری</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Role Switcher (تغییر سریع پنل کاربری) -->
+                <div class="flex items-center bg-mega-950/50 p-1.5 rounded-2xl border border-white/15 backdrop-blur-sm order-3 xl:order-2 w-full xl:w-auto justify-center">
+                    <span class="text-xs text-blue-200 px-2.5 hidden sm:inline-flex items-center gap-1.5 font-medium">
+                        <i class="fa-solid fa-arrows-rotate text-sky-300"></i>
+                        پنل فعال:
+                    </span>
+                    <div class="grid grid-cols-3 gap-1 w-full sm:w-auto">
+                        <button onclick="switchRole('employee')" id="roleBtn-employee" class="role-switch-btn px-3 sm:px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all flex items-center justify-center gap-1.5">
+                            <i class="fa-solid fa-user-clock"></i>
+                            <span>پنل کارمند</span>
+                        </button>
+                        <button onclick="switchRole('manager')" id="roleBtn-manager" class="role-switch-btn px-3 sm:px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all flex items-center justify-center gap-1.5 relative">
+                            <i class="fa-solid fa-user-gear"></i>
+                            <span>پنل رئیس / مدیر فنی</span>
+                            <span id="headerManagerBadge" class="hidden w-5 h-5 rounded-full bg-rose-500 text-white text-[11px] items-center justify-center font-extrabold shadow">۰</span>
+                        </button>
+                        <button onclick="switchRole('ceo')" id="roleBtn-ceo" class="role-switch-btn px-3 sm:px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all flex items-center justify-center gap-1.5">
+                            <i class="fa-solid fa-crown text-amber-300"></i>
+                            <span>پنل مدیرعامل</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Active User Selector & Utilities -->
+                <div class="flex items-center gap-2 sm:gap-3 order-2 xl:order-3">
+                    <!-- Active Employee Selector (Shown when in Employee Mode) -->
+                    <div id="employeeQuickSelectWrap" class="flex items-center bg-white/10 hover:bg-white/15 border border-white/20 rounded-xl px-2.5 py-1.5 transition">
+                        <i class="fa-solid fa-id-badge text-sky-300 ml-2 text-sm"></i>
+                        <label for="activeEmployeeSelect" class="sr-only">انتخاب کارمند</label>
+                        <select id="activeEmployeeSelect" onchange="changeActiveEmployee(this.value)" class="bg-transparent text-white text-xs sm:text-sm font-bold focus:outline-none cursor-pointer pr-1">
+                            <!-- Populated by JS -->
+                        </select>
+                    </div>
+
+                    <!-- Date Badge -->
+                    <div class="hidden md:flex items-center gap-1.5 bg-white/10 px-3 py-2 rounded-xl text-xs font-medium border border-white/10">
+                        <i class="fa-regular fa-calendar-check text-sky-300"></i>
+                        <span id="currentPersianDateHeader">جمعه ۲۴ مهر ۱۴۰۵</span>
+                    </div>
+
+                    <!-- Reset Demo Data Button -->
+                    <button onclick="openResetModal()" title="بازنشانی داده‌های نمونه" class="p-2.5 rounded-xl bg-white/10 hover:bg-white/20 text-blue-100 hover:text-white transition text-sm flex items-center gap-1.5 border border-white/10">
+                        <i class="fa-solid fa-rotate-right"></i>
+                        <span class="hidden sm:inline text-xs font-semibold">بازنشانی دیتا</span>
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Layout Container -->
+    <div class="max-w-[1440px] w-full mx-auto flex-1 flex flex-col lg:flex-row gap-6 px-4 sm:px-6 lg:px-8 py-6">
+
+        <!-- Mobile Sidebar Backdrop -->
+        <div id="mobileSidebarBackdrop" onclick="toggleMobileSidebar()" class="fixed inset-0 bg-slate-900/60 backdrop-blur-xs z-40 hidden lg:hidden transition-opacity"></div>
+
+        <!-- Sidebar Navigation -->
+        <aside id="appSidebar" class="fixed lg:static inset-y-0 right-0 z-50 w-72 lg:w-72 shrink-0 bg-white rounded-none lg:rounded-3xl shadow-xl lg:shadow-sm border-l lg:border border-blue-100 flex flex-col justify-between p-5 transform translate-x-full lg:translate-x-0 transition-transform duration-300 ease-in-out no-print overflow-y-auto">
+            <div>
+                <!-- Mobile Close Header -->
+                <div class="flex items-center justify-between lg:hidden pb-4 mb-4 border-b border-blue-100">
+                    <div class="flex items-center gap-2">
+                        <div class="w-8 h-8 rounded-xl bg-mega-700 text-white flex items-center justify-center font-bold">
+                            M
+                        </div>
+                        <span class="font-extrabold text-mega-900">منوی مگابایت سیستم</span>
+                    </div>
+                    <button onclick="toggleMobileSidebar()" class="p-2 rounded-xl text-slate-500 hover:bg-blue-50">
+                        <i class="fa-solid fa-xmark text-lg"></i>
+                    </button>
+                </div>
+
+                <!-- Current Profile Card in Sidebar -->
+                <div id="sidebarProfileCard" class="bg-gradient-to-br from-mega-50 to-blue-100/70 border border-blue-200/80 rounded-2xl p-4 mb-5">
+                    <!-- Dynamic content injected via JS -->
+                </div>
+
+                <!-- Navigation Menu Items (Dynamic per Role) -->
+                <div class="mb-2">
+                    <p class="text-[11px] font-bold text-slate-400 uppercase tracking-wider px-3 mb-2">بخش‌های پنل فعلی</p>
+                    <nav id="sidebarNavLinks" class="space-y-1.5">
+                        <!-- Injected via JS -->
+                    </nav>
+                </div>
+
+                <!-- Live Quick Stats in Sidebar -->
+                <div class="mt-6 pt-5 border-t border-blue-100">
+                    <p class="text-[11px] font-bold text-slate-400 uppercase tracking-wider px-3 mb-3">وضعیت لحظه‌ای شرکت</p>
+                    <div class="space-y-2.5 px-1">
+                        <div class="flex items-center justify-between p-2.5 rounded-xl bg-blue-50/70 border border-blue-100">
+                            <span class="text-xs font-medium text-slate-600 flex items-center gap-2">
+                                <span class="w-2 h-2 rounded-full bg-blue-600"></span>
+                                کل ساعات ثبت شده
+                            </span>
+                            <span id="sideStatHours" class="text-xs font-extrabold text-mega-800">۰ ساعت</span>
+                        </div>
+                        <div class="flex items-center justify-between p-2.5 rounded-xl bg-rose-50/70 border border-rose-100">
+                            <span class="text-xs font-medium text-slate-600 flex items-center gap-2">
+                                <span class="w-2 h-2 rounded-full bg-rose-500 animate-ping"></span>
+                                موانع و مشکلات باز
+                            </span>
+                            <span id="sideStatBlockers" class="text-xs font-extrabold text-rose-600">۰ مورد</span>
+                        </div>
+                        <div class="flex items-center justify-between p-2.5 rounded-xl bg-emerald-50/70 border border-emerald-100">
+                            <span class="text-xs font-medium text-slate-600 flex items-center gap-2">
+                                <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+                                گزارش‌های تایید شده
+                            </span>
+                            <span id="sideStatApproved" class="text-xs font-extrabold text-emerald-700">۰ مورد</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sidebar Footer -->
+            <div class="mt-6 pt-4 border-t border-blue-100 text-center">
+                <div class="bg-gradient-to-r from-mega-800 to-mega-600 text-white rounded-2xl p-3.5 shadow-sm">
+                    <p class="text-xs font-bold mb-1 flex items-center justify-center gap-1.5">
+                        <i class="fa-solid fa-shield-halved text-sky-300"></i>
+                        پشتیبانی داخلی مگابایت
+                    </p>
+                    <p class="text-[11px] text-blue-100 leading-relaxed">
+                        تمامی گزارش‌ها به صورت آنی در پنل رئیس و مدیرعامل همگام‌سازی می‌شوند.
+                    </p>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="flex-1 min-w-0 space-y-6 print-full">
+
+            <!-- Company Pinned Announcement Banner -->
+            <div id="announcementBanner" class="bg-gradient-to-l from-white via-white to-blue-50 border-r-4 border-mega-600 rounded-2xl p-4 shadow-sm border border-blue-100 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                <!-- Populated by JS -->
+            </div>
+
+            <!-- ==========================================
+                 PANEL 1: EMPLOYEE PANEL (پنل کارمند)
+                 ========================================== -->
+            <section id="panel-employee" class="space-y-6 animate-fade-in">
+                
+                <!-- Top Welcome & Smart Stopwatch Row -->
+                <div class="grid grid-cols-1 xl:grid-cols-12 gap-6">
+                    
+                    <!-- Employee Summary & Quick KPIs (7 cols) -->
+                    <div class="xl:col-span-7 bg-white rounded-3xl p-6 shadow-sm border border-blue-100 flex flex-col justify-between">
+                        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-5 border-b border-blue-50">
+                            <div class="flex items-center gap-4">
+                                <div id="empHeaderAvatar" class="w-14 h-14 rounded-2xl bg-mega-700 text-white flex items-center justify-center text-xl font-black shadow-md">
+                                    ا
+                                </div>
+                                <div>
+                                    <div class="flex items-center gap-2 flex-wrap">
+                                        <h2 id="empHeaderName" class="text-lg sm:text-xl font-extrabold text-slate-800">امیرحسین رضایی</h2>
+                                        <span id="empHeaderDept" class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-blue-100 text-mega-800">واحد طراحی و تدوین</span>
+                                    </div>
+                                    <p id="empHeaderRole" class="text-xs sm:text-sm text-slate-500 mt-0.5">طراح رابط کاربری و تدوینگر ویدیو</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-2 self-start sm:self-center">
+                                <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-emerald-50 text-emerald-700 text-xs font-bold border border-emerald-200">
+                                    <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                                    آماده ثبت فعالیت
+                                </span>
+                            </div>
+                        </div>
+
+                        <!-- Employee Personal Stats -->
+                        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-5">
+                            <div class="bg-mega-50/70 border border-blue-100 rounded-2xl p-3.5">
+                                <div class="text-xs text-slate-500 mb-1 flex items-center justify-between">
+                                    <span>ساعات کارکرد من</span>
+                                    <i class="fa-regular fa-clock text-mega-600"></i>
+                                </div>
+                                <p id="empStatTotalHours" class="text-lg font-black text-mega-900">۰ ساعت</p>
+                            </div>
+                            <div class="bg-mega-50/70 border border-blue-100 rounded-2xl p-3.5">
+                                <div class="text-xs text-slate-500 mb-1 flex items-center justify-between">
+                                    <span>گزارش‌های ثبت‌شده</span>
+                                    <i class="fa-solid fa-file-lines text-mega-600"></i>
+                                </div>
+                                <p id="empStatLogsCount" class="text-lg font-black text-mega-900">۰ گزارش</p>
+                            </div>
+                            <div class="bg-amber-50/70 border border-amber-100 rounded-2xl p-3.5">
+                                <div class="text-xs text-slate-500 mb-1 flex items-center justify-between">
+                                    <span>تسک‌های در جریان</span>
+                                    <i class="fa-solid fa-list-check text-amber-600"></i>
+                                </div>
+                                <p id="empStatOpenTasks" class="text-lg font-black text-amber-700">۰ تسک</p>
+                            </div>
+                            <div class="bg-rose-50/70 border border-rose-100 rounded-2xl p-3.5">
+                                <div class="text-xs text-slate-500 mb-1 flex items-center justify-between">
+                                    <span>موانع اعلام شده</span>
+                                    <i class="fa-solid fa-triangle-exclamation text-rose-500"></i>
+                                </div>
+                                <p id="empStatMyBlockers" class="text-lg font-black text-rose-600">۰ مورد</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Smart Live Work Timer (5 cols) -->
+                    <div id="timerSectionCard" class="xl:col-span-5 bg-gradient-to-br from-mega-900 via-mega-800 to-mega-600 text-white rounded-3xl p-6 shadow-md flex flex-col justify-between relative overflow-hidden">
+                        <div class="absolute -left-10 -bottom-10 w-40 h-40 rounded-full bg-white/5 pointer-events-none"></div>
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center gap-2">
+                                <div class="w-9 h-9 rounded-xl bg-white/15 flex items-center justify-center">
+                                    <i class="fa-solid fa-stopwatch text-sky-300 text-lg"></i>
+                                </div>
+                                <div>
+                                    <h3 class="font-extrabold text-sm sm:text-base">تایمر هوشمند محاسبه زمان کار</h3>
+                                    <p class="text-[11px] text-blue-200">زمان کار خود را زنده ثبت و مستقیم به فرم گزارش منتقل کنید</p>
+                                </div>
+                            </div>
+                            <span id="timerStatusBadge" class="px-2.5 py-1 rounded-full text-[11px] font-bold bg-white/15 text-blue-100">
+                                متوقف
+                            </span>
+                        </div>
+
+                        <!-- Digital Clock Display -->
+                        <div class="my-5 text-center bg-mega-950/40 border border-white/10 rounded-2xl py-4 px-3 backdrop-blur-xs">
+                            <div id="liveTimerDisplay" class="text-3xl sm:text-4xl font-black tracking-widest text-white font-mono" dir="ltr">
+                                ۰. : ۰. : ۰.
+                            </div>
+                            <div class="flex items-center justify-center gap-3 mt-2">
+                                <button type="button" onclick="addTestMinutesToTimer(15)" class="text-[11px] bg-white/10 hover:bg-white/20 text-sky-200 px-2.5 py-1 rounded-lg transition">
+                                    +۱۵ دقیقه (تست سریع)
+                                </button>
+                                <button type="button" onclick="addTestMinutesToTimer(60)" class="text-[11px] bg-white/10 hover:bg-white/20 text-sky-200 px-2.5 py-1 rounded-lg transition">
+                                    +۱ ساعت (تست سریع)
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Timer Controls -->
+                        <div class="grid grid-cols-3 gap-2.5">
+                            <button type="button" id="btnTimerStart" onclick="startWorkTimer()" class="bg-emerald-500 hover:bg-emerald-600 active:scale-95 text-white font-bold py-2.5 px-3 rounded-xl text-xs sm:text-sm transition flex items-center justify-center gap-1.5 shadow">
+                                <i class="fa-solid fa-play"></i>
+                                <span>شروع کار</span>
+                            </button>
+                            <button type="button" id="btnTimerPause" onclick="pauseWorkTimer()" class="bg-amber-500 hover:bg-amber-600 active:scale-95 text-white font-bold py-2.5 px-3 rounded-xl text-xs sm:text-sm transition flex items-center justify-center gap-1.5 shadow opacity-60" disabled>
+                                <i class="fa-solid fa-pause"></i>
+                                <span>توقف موقت</span>
+                            </button>
+                            <button type="button" id="btnTimerFinish" onclick="finishTimerAndFillForm()" class="bg-white text-mega-900 hover:bg-blue-50 active:scale-95 font-extrabold py-2.5 px-3 rounded-xl text-xs sm:text-sm transition flex items-center justify-center gap-1.5 shadow">
+                                <i class="fa-solid fa-check-double text-mega-600"></i>
+                                <span>درج در فرم</span>
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Main Employee Grid: Left (Assigned Tasks & History) | Right (Submit Work Log Form) -->
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+
+                    <!-- Submit Daily Activity & Blocker Form (7 cols) -->
+                    <div id="empWorkLogFormCard" class="lg:col-span-7 bg-white rounded-3xl p-6 shadow-sm border border-blue-100">
+                        <div class="flex items-center justify-between pb-4 mb-5 border-b border-blue-100">
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 rounded-2xl bg-blue-100 text-mega-700 flex items-center justify-center text-lg">
+                                    <i class="fa-solid fa-pen-to-square"></i>
+                                </div>
+                                <div>
+                                    <h3 class="text-base sm:text-lg font-extrabold text-slate-800">ثبت گزارش کارکرد و فعالیت روزانه</h3>
+                                    <p class="text-xs text-slate-500">چقدر کار کردید، چه کاری انجام دادید و اگر مشکلی دارید اعلام کنید</p>
+                                </div>
+                            </div>
+                            <span class="hidden sm:inline-flex text-xs font-bold text-mega-700 bg-blue-50 px-3 py-1 rounded-xl border border-blue-200">
+                                ارسال مستقیم به رئیس بخش
+                            </span>
+                        </div>
+
+                        <form id="employeeLogForm" onsubmit="submitEmployeeWorkLog(event)" class="space-y-5">
+                            <!-- Project & Date Row -->
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-xs font-bold text-slate-700 mb-1.5">
+                                        پروژه یا واحد مربوطه <span class="text-rose-500">*</span>
+                                    </label>
+                                    <select id="logProjectInput" required class="w-full rounded-2xl border border-blue-200 bg-mega-50/50 px-3.5 py-2.5 text-sm font-medium text-slate-800 focus:border-mega-600 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500/20 transition">
+                                        <!-- Populated dynamically -->
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-bold text-slate-700 mb-1.5">
+                                        تاریخ انجام فعالیت <span class="text-rose-500">*</span>
+                                    </label>
+                                    <div class="flex gap-2">
+                                        <input type="text" id="logDateInput" value="۱۴۰۵/۰۷/۲۴" required class="w-full rounded-2xl border border-blue-200 bg-mega-50/50 px-3.5 py-2.5 text-sm font-medium text-slate-800 focus:border-mega-600 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500/20 transition" placeholder="مثلاً ۱۴۰۵/۰۷/۲۴">
+                                        <button type="button" onclick="setLogDatePreset('۱۴۰۵/۰۷/۲۴')" class="shrink-0 px-3 py-2 rounded-xl bg-blue-50 hover:bg-blue-100 text-mega-700 text-xs font-bold border border-blue-200 transition">امروز</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Duration (Hours & Minutes) & Task Title -->
+                            <div class="grid grid-cols-1 sm:grid-cols-12 gap-4">
+                                <div class="sm:col-span-6">
+                                    <label class="block text-xs font-bold text-slate-700 mb-1.5">
+                                        عنوان تسک یا فعالیت اصلی <span class="text-rose-500">*</span>
+                                    </label>
+                                    <input type="text" id="logTitleInput" required placeholder="مثلاً: طراحی بنرهای کمپین یا رفع باگ سبد خرید" class="w-full rounded-2xl border border-blue-200 bg-mega-50/50 px-3.5 py-2.5 text-sm font-medium text-slate-800 focus:border-mega-600 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500/20 transition">
+                                </div>
+                                <div class="sm:col-span-3">
+                                    <label class="block text-xs font-bold text-slate-700 mb-1.5">
+                                        مدت زمان (ساعت) <span class="text-rose-500">*</span>
+                                    </label>
+                                    <div class="relative">
+                                        <input type="number" id="logHoursInput" min="0" max="24" value="4" required class="w-full rounded-2xl border border-blue-200 bg-mega-50/50 px-3.5 py-2.5 text-sm font-extrabold text-mega-900 focus:border-mega-600 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500/20 transition">
+                                        <span class="absolute left-3 top-2.5 text-xs text-slate-400 font-bold">ساعت</span>
+                                    </div>
+                                </div>
+                                <div class="sm:col-span-3">
+                                    <label class="block text-xs font-bold text-slate-700 mb-1.5">
+                                        دقیقه
+                                    </label>
+                                    <div class="relative">
+                                        <input type="number" id="logMinutesInput" min="0" max="59" value="30" required class="w-full rounded-2xl border border-blue-200 bg-mega-50/50 px-3.5 py-2.5 text-sm font-extrabold text-mega-900 focus:border-mega-600 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500/20 transition">
+                                        <span class="absolute left-3 top-2.5 text-xs text-slate-400 font-bold">دقیقه</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Detailed Activity Description (چیکار کردن) -->
+                            <div>
+                                <label class="block text-xs font-bold text-slate-700 mb-1.5">
+                                    شرح کامل فعالیت‌های انجام شده (امروز دقیقاً چیکار کردید؟) <span class="text-rose-500">*</span>
+                                </label>
+                                <textarea id="logDescInput" rows="3" required placeholder="توضیحات کامل کارهای انجام شده، خروجی‌های تحویل داده شده و جزئیات فنی را بنویسید..." class="w-full rounded-2xl border border-blue-200 bg-mega-50/50 p-3.5 text-sm text-slate-800 focus:border-mega-600 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500/20 transition"></textarea>
+                            </div>
+
+                            <!-- Interactive Sub-tasks / Deliverables Builder -->
+                            <div class="bg-blue-50/60 rounded-2xl p-4 border border-blue-100">
+                                <label class="block text-xs font-bold text-slate-700 mb-2">
+                                    آیتم‌ها و ریزفعالیت‌های تکمیل شده (اختیاری - برای شفافیت بیشتر گزارش)
+                                </label>
+                                <div class="flex gap-2 mb-2.5">
+                                    <input type="text" id="subtaskTempInput" onkeydown="if(event.key==='Enter'){event.preventDefault();addTempSubtask();}" placeholder="یک مورد بنویسید و روی افزودن بزنید (مثلاً: خروجی رندر استوری)" class="flex-1 rounded-xl border border-blue-200 bg-white px-3 py-2 text-xs sm:text-sm focus:border-mega-600 focus:outline-none">
+                                    <button type="button" onclick="addTempSubtask()" class="px-4 py-2 rounded-xl bg-mega-600 hover:bg-mega-700 text-white text-xs font-bold transition flex items-center gap-1.5 shrink-0">
+                                        <i class="fa-solid fa-plus"></i>
+                                        <span>افزودن آیتم</span>
+                                    </button>
+                                </div>
+                                <div id="tempSubtasksContainer" class="flex flex-wrap gap-2">
+                                    <!-- Subtask chips rendered here -->
+                                </div>
+                            </div>
+
+                            <!-- Progress Slider -->
+                            <div class="bg-mega-50/40 rounded-2xl p-4 border border-blue-100">
+                                <div class="flex items-center justify-between mb-2">
+                                    <label for="logProgressInput" class="text-xs font-bold text-slate-700">
+                                        میزان پیشرفت این تسک / فعالیت:
+                                    </label>
+                                    <span id="logProgressBadge" class="px-3 py-0.5 rounded-full text-xs font-extrabold bg-mega-700 text-white">
+                                        ۸۰٪
+                                    </span>
+                                </div>
+                                <input type="range" id="logProgressInput" min="0" max="100" step="5" value="80" oninput="updateProgressBadge(this.value)" class="w-full">
+                                <div class="flex justify-between text-[11px] text-slate-400 mt-1 font-medium">
+                                    <span>شروع (۰٪)</span>
+                                    <span>نیمه‌کاره (۵۰٪)</span>
+                                    <span>تکمیل نهایی (۱۰۰٪)</span>
+                                </div>
+                            </div>
+
+                            <!-- Blocker / Problem Toggle (مشکل شون کجاست؟) -->
+                            <div class="rounded-2xl border-2 border-dashed border-rose-200 bg-rose-50/30 p-4 transition-all">
+                                <div class="flex items-center justify-between">
+                                    <label for="hasBlockerToggle" class="flex items-center gap-3 cursor-pointer select-none">
+                                        <input type="checkbox" id="hasBlockerToggle" onchange="toggleBlockerFields(this.checked)" class="w-5 h-5 rounded-lg text-rose-600 focus:ring-rose-500 border-rose-300 cursor-pointer">
+                                        <div>
+                                            <span class="text-sm font-extrabold text-rose-800 flex items-center gap-1.5">
+                                                <i class="fa-solid fa-circle-exclamation text-rose-600"></i>
+                                                در انجام کار با مشکل، چالش یا مانع مواجه شدم!
+                                            </span>
+                                            <p class="text-[11px] text-slate-500">اگر برای ادامه کار نیاز به تصمیم مدیر، رفع باگ، دسترسی یا هماهنگی دارید تیک بزنید</p>
+                                        </div>
+                                    </label>
+                                </div>
+
+                                <!-- Collapsible Problem Details -->
+                                <div id="blockerDetailsBox" class="hidden mt-4 pt-4 border-t border-rose-200/80 space-y-4">
+                                    <div>
+                                        <label class="block text-xs font-bold text-rose-900 mb-1.5">
+                                            مشکل کجاست؟ (شرح دقیق مانع، باگ یا نیازمندی) <span class="text-rose-600">*</span>
+                                        </label>
+                                        <textarea id="blockerDescInput" rows="2" placeholder="دقیق بنویسید چه چیزی مانع پیشرفت کار شماست تا رئیس بخش یا مدیرعامل سریعاً برطرف کنند..." class="w-full rounded-2xl border border-rose-300 bg-white p-3 text-sm text-slate-800 focus:border-rose-500 focus:outline-none focus:ring-2 focus:ring-rose-500/20"></textarea>
+                                    </div>
+                                    <div>
+                                        <label class="block text-xs font-bold text-rose-900 mb-1.5">
+                                            سطح فوریت و اثرگذاری مشکل بر کار شما:
+                                        </label>
+                                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
+                                            <label class="cursor-pointer">
+                                                <input type="radio" name="blockerSeverity" value="low" class="peer sr-only">
+                                                <div class="p-2.5 rounded-xl border border-slate-200 bg-white peer-checked:border-amber-500 peer-checked:bg-amber-50 text-center transition">
+                                                    <span class="text-xs font-bold text-slate-700 peer-checked:text-amber-800 block">عادی / سوال فنی</span>
+                                                    <span class="text-[10px] text-slate-400">کار متوقف نشده است</span>
+                                                </div>
+                                            </label>
+                                            <label class="cursor-pointer">
+                                                <input type="radio" name="blockerSeverity" value="medium" checked class="peer sr-only">
+                                                <div class="p-2.5 rounded-xl border border-slate-200 bg-white peer-checked:border-orange-500 peer-checked:bg-orange-50 text-center transition">
+                                                    <span class="text-xs font-bold text-slate-700 peer-checked:text-orange-800 block">مهم / کندی کار</span>
+                                                    <span class="text-[10px] text-slate-400">نیازمند بررسی امروز</span>
+                                                </div>
+                                            </label>
+                                            <label class="cursor-pointer">
+                                                <input type="radio" name="blockerSeverity" value="critical" class="peer sr-only">
+                                                <div class="p-2.5 rounded-xl border border-slate-200 bg-white peer-checked:border-rose-600 peer-checked:bg-rose-100/80 text-center transition">
+                                                    <span class="text-xs font-bold text-slate-700 peer-checked:text-rose-800 block">بحرانی / توقف کار!</span>
+                                                    <span class="text-[10px] text-rose-500 font-semibold">نیاز به اقدام فوری رئیس</span>
+                                                </div>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Submit Button -->
+                            <div class="pt-2">
+                                <button type="submit" class="w-full py-3.5 px-6 rounded-2xl bg-gradient-to-l from-mega-800 via-mega-700 to-mega-600 hover:from-mega-900 hover:to-mega-700 active:scale-[0.99] text-white font-extrabold text-sm sm:text-base shadow-md hover:shadow-lg transition flex items-center justify-center gap-2">
+                                    <i class="fa-solid fa-paper-plane"></i>
+                                    <span>ثبت نهایی گزارش کارکرد در سامانه مگابایت سیستم</span>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- Assigned Tasks & Recent Logs Column (5 cols) -->
+                    <div class="lg:col-span-5 space-y-6">
+                        
+                        <!-- Assigned Tasks to Current Employee -->
+                        <div class="bg-white rounded-3xl p-6 shadow-sm border border-blue-100">
+                            <div class="flex items-center justify-between pb-4 mb-4 border-b border-blue-100">
+                                <div class="flex items-center gap-2.5">
+                                    <div class="w-9 h-9 rounded-xl bg-amber-100 text-amber-700 flex items-center justify-center">
+                                        <i class="fa-solid fa-clipboard-list"></i>
+                                    </div>
+                                    <div>
+                                        <h3 class="font-extrabold text-sm sm:text-base text-slate-800">تسک‌های محول شده به من</h3>
+                                        <p class="text-[11px] text-slate-500">وظایف تعیین‌شده توسط رئیس یا مدیرعامل</p>
+                                    </div>
+                                </div>
+                                <span id="empTasksCountBadge" class="px-2.5 py-1 rounded-full text-xs font-extrabold bg-blue-50 text-mega-700">۰</span>
+                            </div>
+
+                            <div id="employeeAssignedTasksList" class="space-y-3 max-h-[380px] overflow-y-auto pr-1">
+                                <!-- Populated via JS -->
+                            </div>
+                        </div>
+
+                        <!-- Quick Guide / Manager Feedback Highlights -->
+                        <div class="bg-gradient-to-br from-blue-50 to-white rounded-3xl p-5 border border-blue-200/80 shadow-xs">
+                            <h4 class="font-extrabold text-xs sm:text-sm text-mega-900 mb-2 flex items-center gap-2">
+                                <i class="fa-solid fa-lightbulb text-amber-500"></i>
+                                راهنمای ثبت دقیق‌تر فعالیت‌ها در مگابایت سیستم
+                            </h4>
+                            <ul class="text-xs text-slate-600 space-y-1.5 leading-relaxed list-disc list-inside">
+                                <li>می‌توانید روی دکمه <strong>«انتقال به فرم گزارش»</strong> در هر تسک بزنید تا عنوان و پروژه خودکار پر شود.</li>
+                                <li>در صورت اعلام مشکل، پاسخ و دستورالعمل رئیس بخش مستقیماً در جدول پایین همین صفحه نمایش داده می‌شود.</li>
+                            </ul>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <!-- Employee Submitted Work Logs History & Manager Responses -->
+                <div id="empHistorySection" class="bg-white rounded-3xl p-6 shadow-sm border border-blue-100">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 mb-5 border-b border-blue-100">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-2xl bg-mega-100 text-mega-700 flex items-center justify-center text-lg">
+                                <i class="fa-solid fa-clock-rotate-left"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-base sm:text-lg font-extrabold text-slate-800">سوابق گزارش‌های من و پاسخ مدیران</h3>
+                                <p class="text-xs text-slate-500">وضعیت تایید گزارش‌ها و راه‌حل‌های ثبت‌شده برای مشکلات اعلامی شما</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <select id="empHistoryFilterStatus" onchange="renderEmployeePanel()" class="rounded-xl border border-blue-200 bg-mega-50/60 px-3 py-2 text-xs font-bold text-slate-700 focus:outline-none">
+                                <option value="all">همه وضعیت‌ها</option>
+                                <option value="approved">تایید شده</option>
+                                <option value="pending">در انتظار بررسی</option>
+                                <option value="blocker">دارای مشکل / مانع</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div id="employeeLogsHistoryContainer" class="space-y-4">
+                        <!-- Populated via JS -->
+                    </div>
+                </div>
+
+            </section>
+
+
+            <!-- ==========================================
+                 PANEL 2: MANAGER / SUPERVISOR PANEL (پنل رئیس / مدیر فنی)
+                 ========================================== -->
+            <section id="panel-manager" class="space-y-6 hidden animate-fade-in">
+                
+                <!-- Manager Top Banner & Summary Cards -->
+                <div class="bg-white rounded-3xl p-6 shadow-sm border border-blue-100">
+                    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-5 border-b border-blue-100">
+                        <div class="flex items-center gap-3.5">
+                            <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-mega-700 to-mega-900 text-white flex items-center justify-center text-xl shadow-md">
+                                <i class="fa-solid fa-user-tie"></i>
+                            </div>
+                            <div>
+                                <h2 class="text-lg sm:text-xl font-extrabold text-slate-800">پنل رئیس و مدیر فنی و اجرایی</h2>
+                                <p class="text-xs sm:text-sm text-slate-500">بررسی گزارش کارکرد کارمندان، رفع موانع فنی/اجرایی و ارجاع تسک‌های روزانه</p>
+                            </div>
+                        </div>
+                        <div class="flex flex-wrap items-center gap-2.5">
+                            <button onclick="openAssignTaskModal()" class="px-4 py-2.5 rounded-2xl bg-mega-700 hover:bg-mega-800 text-white text-xs sm:text-sm font-extrabold transition flex items-center gap-2 shadow-sm">
+                                <i class="fa-solid fa-plus-circle"></i>
+                                <span>تعریف و ارجاع تسک جدید به کارمند</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Manager 4 KPI Cards -->
+                    <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 pt-5">
+                        <div class="p-4 rounded-2xl bg-rose-50 border border-rose-200 flex items-center justify-between">
+                            <div>
+                                <p class="text-xs font-bold text-rose-800">مشکلات و موانع باز کارمندان</p>
+                                <p id="mgrStatOpenBlockers" class="text-2xl font-black text-rose-600 mt-1">۰ مورد</p>
+                                <span class="text-[11px] text-rose-500 font-medium">نیازمند پاسخ و راهنمایی شما</span>
+                            </div>
+                            <div class="w-11 h-11 rounded-2xl bg-rose-100 text-rose-600 flex items-center justify-center text-xl">
+                                <i class="fa-solid fa-fire-extinguisher"></i>
+                            </div>
+                        </div>
+
+                        <div class="p-4 rounded-2xl bg-amber-50 border border-amber-200 flex items-center justify-between">
+                            <div>
+                                <p class="text-xs font-bold text-amber-900">گزارش‌های در انتظار تایید</p>
+                                <p id="mgrStatPendingLogs" class="text-2xl font-black text-amber-600 mt-1">۰ گزارش</p>
+                                <span class="text-[11px] text-amber-600 font-medium">ثبت شده توسط اعضای تیم</span>
+                            </div>
+                            <div class="w-11 h-11 rounded-2xl bg-amber-100 text-amber-600 flex items-center justify-center text-xl">
+                                <i class="fa-solid fa-hourglass-half"></i>
+                            </div>
+                        </div>
+
+                        <div class="p-4 rounded-2xl bg-blue-50 border border-blue-200 flex items-center justify-between">
+                            <div>
+                                <p class="text-xs font-bold text-mega-900">تسک‌های در جریان تیم</p>
+                                <p id="mgrStatActiveTasks" class="text-2xl font-black text-mega-700 mt-1">۰ تسک</p>
+                                <span class="text-[11px] text-mega-600 font-medium">محول شده به کارمندان</span>
+                            </div>
+                            <div class="w-11 h-11 rounded-2xl bg-blue-100 text-mega-700 flex items-center justify-center text-xl">
+                                <i class="fa-solid fa-bars-progress"></i>
+                            </div>
+                        </div>
+
+                        <div class="p-4 rounded-2xl bg-emerald-50 border border-emerald-200 flex items-center justify-between">
+                            <div>
+                                <p class="text-xs font-bold text-emerald-900">موانع برطرف شده</p>
+                                <p id="mgrStatResolvedBlockers" class="text-2xl font-black text-emerald-600 mt-1">۰ مورد</p>
+                                <span class="text-[11px] text-emerald-600 font-medium">پاسخ داده شده توسط مدیر</span>
+                            </div>
+                            <div class="w-11 h-11 rounded-2xl bg-emerald-100 text-emerald-600 flex items-center justify-center text-xl">
+                                <i class="fa-solid fa-check-double"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 1. HIGHLIGHTED: Employee Blockers & Issues Resolution Hub (مرکز رفع موانع و مشکلات کارمندان) -->
+                <div id="mgrBlockersSection" class="bg-white rounded-3xl p-6 shadow-sm border-2 border-rose-200">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 mb-5 border-b border-rose-100">
+                        <div class="flex items-center gap-3">
+                            <div class="w-11 h-11 rounded-2xl bg-rose-100 text-rose-600 flex items-center justify-center text-xl shadow-xs">
+                                <i class="fa-solid fa-triangle-exclamation"></i>
+                            </div>
+                            <div>
+                                <div class="flex items-center gap-2">
+                                    <h3 class="text-base sm:text-lg font-extrabold text-slate-800">مرکز رسیدگی به مشکلات و موانع کارمندان (مشکلشون کجاست؟)</h3>
+                                    <span class="px-2.5 py-0.5 rounded-full text-[11px] font-extrabold bg-rose-100 text-rose-700">اولویت بالا</span>
+                                </div>
+                                <p class="text-xs text-slate-500">تمامی گزارش‌هایی که کارمندان در آن‌ها اعلام مانع، باگ یا توقف کار کرده‌اند در این بخش نمایش داده می‌شود</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <select id="mgrBlockerFilter" onchange="renderManagerPanel()" class="rounded-xl border border-rose-200 bg-rose-50/50 px-3 py-2 text-xs font-bold text-rose-900 focus:outline-none">
+                                <option value="all">همه موانع (باز و حل‌شده)</option>
+                                <option value="unresolved">فقط موانع باز (حل‌نشده)</option>
+                                <option value="resolved">حل شده‌ها</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div id="managerBlockersList" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <!-- Populated via JS -->
+                    </div>
+                </div>
+
+                <!-- 2. Work Log Review & Approval Table/Cards (بررسی و تایید گزارش‌های کارکرد) -->
+                <div id="mgrLogsReviewSection" class="bg-white rounded-3xl p-6 shadow-sm border border-blue-100">
+                    <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4 pb-5 mb-5 border-b border-blue-100">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-2xl bg-blue-100 text-mega-700 flex items-center justify-center text-lg">
+                                <i class="fa-solid fa-clipboard-check"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-base sm:text-lg font-extrabold text-slate-800">بررسی و تایید گزارش فعالیت‌های کارمندان</h3>
+                                <p class="text-xs text-slate-500">مشاهده جزئیات کارکرد، مدت زمان، درصد پیشرفت و ثبت تاییدیه یا درخواست اصلاح</p>
+                            </div>
+                        </div>
+
+                        <!-- Filters Bar -->
+                        <div class="flex flex-wrap items-center gap-2.5">
+                            <div class="relative">
+                                <i class="fa-solid fa-magnifying-glass absolute right-3 top-2.5 text-slate-400 text-xs"></i>
+                                <input type="text" id="mgrSearchInput" oninput="renderManagerPanel()" placeholder="جستجو در شرح یا عنوان..." class="rounded-xl border border-blue-200 bg-mega-50/40 pr-8 pl-3 py-2 text-xs font-medium focus:border-mega-600 focus:bg-white focus:outline-none">
+                            </div>
+                            <select id="mgrFilterEmployee" onchange="renderManagerPanel()" class="rounded-xl border border-blue-200 bg-mega-50/40 px-3 py-2 text-xs font-bold text-slate-700 focus:outline-none">
+                                <option value="all">همه کارمندان</option>
+                            </select>
+                            <select id="mgrFilterProject" onchange="renderManagerPanel()" class="rounded-xl border border-blue-200 bg-mega-50/40 px-3 py-2 text-xs font-bold text-slate-700 focus:outline-none">
+                                <option value="all">همه پروژه‌ها</option>
+                            </select>
+                            <select id="mgrFilterStatus" onchange="renderManagerPanel()" class="rounded-xl border border-blue-200 bg-mega-50/40 px-3 py-2 text-xs font-bold text-slate-700 focus:outline-none">
+                                <option value="all">همه وضعیت‌ها</option>
+                                <option value="pending">در انتظار بررسی</option>
+                                <option value="approved">تایید شده</option>
+                                <option value="revision">نیاز به اصلاح</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div id="managerLogsContainer" class="space-y-4">
+                        <!-- Populated via JS -->
+                    </div>
+                </div>
+
+                <!-- 3. All Assigned Tasks Overview in Manager Panel -->
+                <div id="mgrTasksSection" class="bg-white rounded-3xl p-6 shadow-sm border border-blue-100">
+                    <div class="flex items-center justify-between pb-4 mb-4 border-b border-blue-100">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-2xl bg-mega-100 text-mega-700 flex items-center justify-center text-lg">
+                                <i class="fa-solid fa-list-check"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-base sm:text-lg font-extrabold text-slate-800">لیست تسک‌های ارجاع شده به تیم</h3>
+                                <p class="text-xs text-slate-500">پیگیری وضعیت تسک‌هایی که به کارمندان محول کرده‌اید</p>
+                            </div>
+                        </div>
+                        <button onclick="openAssignTaskModal()" class="px-3.5 py-2 rounded-xl bg-blue-50 hover:bg-blue-100 text-mega-700 text-xs font-extrabold border border-blue-200 transition">
+                            + تسک جدید
+                        </button>
+                    </div>
+                    <div id="managerTasksTableWrap" class="overflow-x-auto">
+                        <!-- Populated via JS -->
+                    </div>
+                </div>
+
+            </section>
+
+
+            <!-- ==========================================
+                 PANEL 3: CEO PANEL (پنل مدیرعامل)
+                 ========================================== -->
+            <section id="panel-ceo" class="space-y-6 hidden animate-fade-in">
+                
+                <!-- CEO Executive Header Card -->
+                <div class="bg-gradient-to-l from-mega-950 via-mega-900 to-mega-700 text-white rounded-3xl p-6 sm:p-7 shadow-lg relative overflow-hidden">
+                    <div class="absolute -left-12 -top-12 w-56 h-56 rounded-full bg-white/5 pointer-events-none"></div>
+                    <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-5 relative z-10">
+                        <div class="flex items-start sm:items-center gap-4">
+                            <div class="w-14 h-14 rounded-2xl bg-white/15 border border-white/25 flex items-center justify-center text-2xl text-amber-300 shadow-inner shrink-0">
+                                <i class="fa-solid fa-crown"></i>
+                            </div>
+                            <div>
+                                <div class="flex items-center gap-2.5 flex-wrap">
+                                    <h2 class="text-xl sm:text-2xl font-black">داشبورد کلان مدیرعامل | مگابایت سیستم</h2>
+                                    <span class="px-3 py-0.5 rounded-full text-xs font-bold bg-amber-400/20 text-amber-200 border border-amber-300/30">
+                                        دید استراتژیک و نظارت جامع
+                                    </span>
+                                </div>
+                                <p class="text-xs sm:text-sm text-blue-100 mt-1">
+                                    رصد لحظه‌ای راندمان تیم‌ها، ساعات کارکرد پروژه‌ها، گلوگاه‌های اجرایی و مدیریت کلان شرکت
+                                </p>
+                            </div>
+                        </div>
+                        <div class="flex flex-wrap items-center gap-2.5 no-print">
+                            <button onclick="exportLogsToCSV()" class="px-4 py-2.5 rounded-2xl bg-white/15 hover:bg-white/25 border border-white/20 text-white text-xs sm:text-sm font-bold transition flex items-center gap-2">
+                                <i class="fa-solid fa-file-csv text-emerald-300"></i>
+                                <span>خروجی اکسل (CSV)</span>
+                            </button>
+                            <button onclick="window.print()" class="px-4 py-2.5 rounded-2xl bg-white text-mega-900 hover:bg-blue-50 text-xs sm:text-sm font-extrabold transition flex items-center gap-2 shadow">
+                                <i class="fa-solid fa-print text-mega-700"></i>
+                                <span>چاپ گزارش رسمی</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- CEO 4 Executive KPI Cards -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-6 pt-6 border-t border-white/15">
+                        <div class="bg-white/10 backdrop-blur-xs border border-white/15 rounded-2xl p-4">
+                            <div class="flex items-center justify-between text-blue-200 text-xs mb-1">
+                                <span>مجموع ساعات کارکرد شرکت</span>
+                                <i class="fa-solid fa-business-time text-sky-300 text-base"></i>
+                            </div>
+                            <p id="ceoKpiTotalHours" class="text-2xl font-black text-white">۰ ساعت</p>
+                            <p id="ceoKpiAvgPerEmp" class="text-[11px] text-sky-200 mt-1">میانگین هر نفر: ۰ ساعت</p>
+                        </div>
+
+                        <div class="bg-white/10 backdrop-blur-xs border border-white/15 rounded-2xl p-4">
+                            <div class="flex items-center justify-between text-blue-200 text-xs mb-1">
+                                <span>نرخ تایید گزارش‌ها و کیفیت</span>
+                                <i class="fa-solid fa-chart-line text-emerald-300 text-base"></i>
+                            </div>
+                            <p id="ceoKpiApprovalRate" class="text-2xl font-black text-emerald-300">۰٪</p>
+                            <p id="ceoKpiTotalLogsText" class="text-[11px] text-blue-200 mt-1">از مجموع ۰ گزارش ثبت‌شده</p>
+                        </div>
+
+                        <div class="bg-white/10 backdrop-blur-xs border border-white/15 rounded-2xl p-4">
+                            <div class="flex items-center justify-between text-blue-200 text-xs mb-1">
+                                <span>موانع و گلوگاه‌های باز شرکت</span>
+                                <i class="fa-solid fa-shield-virus text-rose-300 text-base"></i>
+                            </div>
+                            <p id="ceoKpiOpenBlockers" class="text-2xl font-black text-rose-300">۰ مانع باز</p>
+                            <p id="ceoKpiResolvedBlockersText" class="text-[11px] text-blue-200 mt-1">۰ مورد تاکنون حل شده است</p>
+                        </div>
+
+                        <div class="bg-white/10 backdrop-blur-xs border border-white/15 rounded-2xl p-4">
+                            <div class="flex items-center justify-between text-blue-200 text-xs mb-1">
+                                <span>میانگین پیشرفت پروژه‌ها</span>
+                                <i class="fa-solid fa-diagram-project text-amber-300 text-base"></i>
+                            </div>
+                            <p id="ceoKpiProjectProgress" class="text-2xl font-black text-amber-300">۰٪</p>
+                            <p id="ceoKpiActiveProjectsCount" class="text-[11px] text-blue-200 mt-1">در ۶ پروژه فعال مگابایت سیستم</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CEO Visual Analytics Row: Employee Performance vs Project Progress -->
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                    
+                    <!-- Employee Productivity & Hours Breakdown (7 cols) -->
+                    <div id="ceoAnalyticsSection" class="lg:col-span-7 bg-white rounded-3xl p-6 shadow-sm border border-blue-100">
+                        <div class="flex items-center justify-between pb-4 mb-5 border-b border-blue-100">
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 rounded-2xl bg-blue-100 text-mega-700 flex items-center justify-center text-lg">
+                                    <i class="fa-solid fa-chart-column"></i>
+                                </div>
+                                <div>
+                                    <h3 class="text-base sm:text-lg font-extrabold text-slate-800">تحلیل عملکرد و ساعات کارکرد به تفکیک کارمندان</h3>
+                                    <p class="text-xs text-slate-500">مقایسه میزان ساعت کارکرد، تعداد گزارش‌ها و وضعیت موانع هر کارمند</p>
+                                </div>
+                            </div>
+                            <button onclick="openAddEmployeeModal()" class="px-3.5 py-2 rounded-xl bg-mega-50 hover:bg-blue-100 text-mega-700 text-xs font-extrabold border border-blue-200 transition no-print">
+                                + افزودن کارمند جدید
+                            </button>
+                        </div>
+
+                        <div id="ceoEmployeePerformanceList" class="space-y-4">
+                            <!-- Populated via JS -->
+                        </div>
+                    </div>
+
+                    <!-- Projects Progress & Time Allocation (5 cols) -->
+                    <div id="ceoProjectsSection" class="lg:col-span-5 bg-white rounded-3xl p-6 shadow-sm border border-blue-100 flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between pb-4 mb-5 border-b border-blue-100">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-10 h-10 rounded-2xl bg-indigo-100 text-indigo-700 flex items-center justify-center text-lg">
+                                        <i class="fa-solid fa-layer-group"></i>
+                                    </div>
+                                    <div>
+                                        <h3 class="text-base sm:text-lg font-extrabold text-slate-800">وضعیت پروژه‌های مگابایت سیستم</h3>
+                                        <p class="text-xs text-slate-500">ساعات صرف‌شده و درصد پیشرفت هر پروژه</p>
+                                    </div>
+                                </div>
+                                <button onclick="openAddProjectModal()" class="px-3 py-1.5 rounded-xl bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-extrabold border border-indigo-200 transition no-print">
+                                    + پروژه جدید
+                                </button>
+                            </div>
+
+                            <div id="ceoProjectsBreakdownList" class="space-y-4">
+                                <!-- Populated via JS -->
+                            </div>
+                        </div>
+
+                        <!-- CEO Quick Announcement Box -->
+                        <div class="mt-6 pt-5 border-t border-blue-100 no-print">
+                            <h4 class="text-xs font-extrabold text-slate-700 mb-2 flex items-center gap-1.5">
+                                <i class="fa-solid fa-bullhorn text-mega-600"></i>
+                                بروزرسانی اطلاعیه رسمی مدیرعامل (نمایش در بالای تمام پنل‌ها)
+                            </h4>
+                            <div class="flex flex-col sm:flex-row gap-2">
+                                <input type="text" id="ceoAnnouncementInput" placeholder="متن اطلاعیه مهم برای کل اعضای شرکت..." class="flex-1 rounded-xl border border-blue-200 bg-mega-50/40 px-3.5 py-2 text-xs font-medium focus:border-mega-600 focus:bg-white focus:outline-none">
+                                <button onclick="updateCompanyAnnouncement()" class="px-4 py-2 rounded-xl bg-mega-700 hover:bg-mega-800 text-white text-xs font-bold transition shrink-0">
+                                    انتشار اطلاعیه
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- CEO Complete Activity & Issues Master Log -->
+                <div id="ceoMasterLogsSection" class="bg-white rounded-3xl p-6 shadow-sm border border-blue-100">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 mb-5 border-b border-blue-100">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-2xl bg-mega-100 text-mega-800 flex items-center justify-center text-lg">
+                                <i class="fa-solid fa-table-list"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-base sm:text-lg font-extrabold text-slate-800">گزارش جامع کل فعالیت‌ها و مشکلات ثبت‌شده در شرکت</h3>
+                                <p class="text-xs text-slate-500">نمای کامل مدیریتی از اینکه هر کارمند چقدر کار کرده، چه کاری انجام داده و چه مشکلی داشته است</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-2 no-print">
+                            <select id="ceoMasterFilterType" onchange="renderCEOPanel()" class="rounded-xl border border-blue-200 bg-mega-50/60 px-3 py-2 text-xs font-bold text-slate-700 focus:outline-none">
+                                <option value="all">نمایش همه گزارش‌ها</option>
+                                <option value="blockers">فقط گزارش‌های دارای مشکل / مانع</option>
+                                <option value="approved">فقط تایید شده‌ها</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div id="ceoMasterLogsTableWrap" class="overflow-x-auto">
+                        <!-- Populated via JS -->
+                    </div>
+                </div>
+
+            </section>
+
+        </main>
+    </div>
+
+    <!-- ==========================================
+         MODALS (بدون استفاده از alert یا confirm)
+         ========================================== -->
+
+    <!-- 1. Modal: Resolve Blocker / Write Manager Solution -->
+    <div id="resolveBlockerModal" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs hidden items-center justify-center p-4">
+        <div class="bg-white rounded-3xl max-w-lg w-full p-6 shadow-2xl border border-blue-100 animate-fade-in">
+            <div class="flex items-center justify-between pb-4 mb-4 border-b border-blue-100">
+                <div class="flex items-center gap-2.5">
+                    <div class="w-10 h-10 rounded-2xl bg-rose-100 text-rose-600 flex items-center justify-center text-lg">
+                        <i class="fa-solid fa-screwdriver-wrench"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-extrabold text-base text-slate-800">ثبت راه‌حل و دستورالعمل رفع مشکل</h3>
+                        <p id="resolveModalSubtitle" class="text-xs text-slate-500">پاسخ مستقیم به کارمند</p>
+                    </div>
+                </div>
+                <button onclick="closeModal('resolveBlockerModal')" class="p-2 rounded-xl text-slate-400 hover:bg-slate-100">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <div id="resolveModalProblemBox" class="p-3.5 rounded-2xl bg-rose-50 border border-rose-200 text-xs text-rose-900 mb-4 leading-relaxed">
+                <!-- Problem text -->
+            </div>
+
+            <form onsubmit="saveBlockerResolution(event)" class="space-y-4">
+                <input type="hidden" id="resolveModalLogId">
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 mb-1.5">
+                        راه‌حل، دستورالعمل یا پاسخ شما به کارمند <span class="text-rose-500">*</span>
+                    </label>
+                    <textarea id="resolveModalSolutionInput" rows="3" required placeholder="مثلاً: دسترسی سرور باز شد، لطفاً مجدد تست کنید یا با واحد بک‌اند هماهنگ شد..." class="w-full rounded-2xl border border-blue-200 bg-mega-50/40 p-3 text-sm focus:border-mega-600 focus:bg-white focus:outline-none"></textarea>
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 mb-1.5">وضعیت مشکل:</label>
+                    <select id="resolveModalStatusSelect" class="w-full rounded-2xl border border-blue-200 bg-mega-50/40 px-3.5 py-2.5 text-sm font-bold text-slate-800 focus:outline-none">
+                        <option value="resolved">حل شده و برطرف گردید (سبز)</option>
+                        <option value="investigating">در حال پیگیری توسط مدیر (نارنجی)</option>
+                    </select>
+                </div>
+                <div class="flex items-center justify-end gap-2 pt-2">
+                    <button type="button" onclick="closeModal('resolveBlockerModal')" class="px-4 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold transition">انصراف</button>
+                    <button type="submit" class="px-5 py-2.5 rounded-xl bg-mega-700 hover:bg-mega-800 text-white text-xs font-extrabold transition shadow">ثبت پاسخ و تایید گزارش</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- 2. Modal: Assign New Task to Employee -->
+    <div id="assignTaskModal" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs hidden items-center justify-center p-4">
+        <div class="bg-white rounded-3xl max-w-lg w-full p-6 shadow-2xl border border-blue-100 animate-fade-in">
+            <div class="flex items-center justify-between pb-4 mb-4 border-b border-blue-100">
+                <div class="flex items-center gap-2.5">
+                    <div class="w-10 h-10 rounded-2xl bg-blue-100 text-mega-700 flex items-center justify-center text-lg">
+                        <i class="fa-solid fa-user-check"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-extrabold text-base text-slate-800">تعریف و ارجاع تسک جدید به کارمند</h3>
+                        <p class="text-xs text-slate-500">تسک بلافاصله در پنل کارمند مربوطه قابل مشاهده خواهد بود</p>
+                    </div>
+                </div>
+                <button onclick="closeModal('assignTaskModal')" class="p-2 rounded-xl text-slate-400 hover:bg-slate-100">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <form onsubmit="submitNewAssignedTask(event)" class="space-y-4">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 mb-1">انتخاب کارمند <span class="text-rose-500">*</span></label>
+                        <select id="taskModalEmployee" required class="w-full rounded-xl border border-blue-200 bg-mega-50/40 px-3 py-2.5 text-xs font-bold text-slate-800 focus:outline-none"></select>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 mb-1">پروژه مربوطه <span class="text-rose-500">*</span></label>
+                        <select id="taskModalProject" required class="w-full rounded-xl border border-blue-200 bg-mega-50/40 px-3 py-2.5 text-xs font-bold text-slate-800 focus:outline-none"></select>
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 mb-1">عنوان تسک / ماموریت <span class="text-rose-500">*</span></label>
+                    <input type="text" id="taskModalTitle" required placeholder="مثلاً: طراحی لندینگ جشنواره پاییزه مگابایت" class="w-full rounded-xl border border-blue-200 bg-mega-50/40 px-3.5 py-2.5 text-sm focus:border-mega-600 focus:bg-white focus:outline-none">
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 mb-1">اولویت تسک</label>
+                        <select id="taskModalPriority" class="w-full rounded-xl border border-blue-200 bg-mega-50/40 px-3 py-2.5 text-xs font-bold text-slate-800 focus:outline-none">
+                            <option value="normal">عادی</option>
+                            <option value="high" selected>مهم و فوری</option>
+                            <option value="critical">بحرانی (اولویت اول)</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 mb-1">مهلت تحویل (ددلاین)</label>
+                        <input type="text" id="taskModalDeadline" value="۱۴۰۵/۰۷/۲۶" required class="w-full rounded-xl border border-blue-200 bg-mega-50/40 px-3 py-2.5 text-xs font-bold text-slate-800 focus:outline-none">
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 mb-1">توضیحات و نکات اجرایی</label>
+                    <textarea id="taskModalDesc" rows="2" placeholder="انتظارات، فایل‌های مرجع یا نکات مورد نیاز کارمند..." class="w-full rounded-xl border border-blue-200 bg-mega-50/40 p-3 text-xs sm:text-sm focus:border-mega-600 focus:bg-white focus:outline-none"></textarea>
+                </div>
+                <div class="flex items-center justify-end gap-2 pt-2">
+                    <button type="button" onclick="closeModal('assignTaskModal')" class="px-4 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold transition">انصراف</button>
+                    <button type="submit" class="px-5 py-2.5 rounded-xl bg-mega-700 hover:bg-mega-800 text-white text-xs font-extrabold transition shadow">ارجاع تسک به کارمند</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- 3. Modal: Add New Employee (CEO) -->
+    <div id="addEmployeeModal" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs hidden items-center justify-center p-4">
+        <div class="bg-white rounded-3xl max-w-md w-full p-6 shadow-2xl border border-blue-100 animate-fade-in">
+            <div class="flex items-center justify-between pb-4 mb-4 border-b border-blue-100">
+                <h3 class="font-extrabold text-base text-slate-800 flex items-center gap-2">
+                    <i class="fa-solid fa-user-plus text-mega-600"></i>
+                    افزودن عضو جدید به تیم مگابایت سیستم
+                </h3>
+                <button onclick="closeModal('addEmployeeModal')" class="p-2 rounded-xl text-slate-400 hover:bg-slate-100">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <form onsubmit="submitNewEmployee(event)" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 mb-1">نام و نام خانوادگی کارمند <span class="text-rose-500">*</span></label>
+                    <input type="text" id="newEmpName" required placeholder="مثلاً: رضا نوری" class="w-full rounded-xl border border-blue-200 bg-mega-50/40 px-3.5 py-2.5 text-sm focus:border-mega-600 focus:bg-white focus:outline-none">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 mb-1">سمت شغلی <span class="text-rose-500">*</span></label>
+                    <input type="text" id="newEmpRole" required placeholder="مثلاً: کارشناس شبکه و دوآپس" class="w-full rounded-xl border border-blue-200 bg-mega-50/40 px-3.5 py-2.5 text-sm focus:border-mega-600 focus:bg-white focus:outline-none">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 mb-1">واحد سازمانی <span class="text-rose-500">*</span></label>
+                    <select id="newEmpDept" class="w-full rounded-xl border border-blue-200 bg-mega-50/40 px-3.5 py-2.5 text-sm font-bold text-slate-800 focus:outline-none">
+                        <option value="واحد فنی و توسعه">واحد فنی و توسعه</option>
+                        <option value="واحد طراحی و تدوین">واحد طراحی و تدوین</option>
+                        <option value="واحد سئو و محتوا">واحد سئو و محتوا</option>
+                        <option value="واحد پشتیبانی و فروش">واحد پشتیبانی و فروش</option>
+                    </select>
+                </div>
+                <div class="flex items-center justify-end gap-2 pt-2">
+                    <button type="button" onclick="closeModal('addEmployeeModal')" class="px-4 py-2.5 rounded-xl bg-slate-100 text-slate-700 text-xs font-bold">انصراف</button>
+                    <button type="submit" class="px-5 py-2.5 rounded-xl bg-mega-700 hover:bg-mega-800 text-white text-xs font-extrabold shadow">ثبت کارمند</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- 4. Modal: Add New Project (CEO) -->
+    <div id="addProjectModal" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs hidden items-center justify-center p-4">
+        <div class="bg-white rounded-3xl max-w-md w-full p-6 shadow-2xl border border-blue-100 animate-fade-in">
+            <div class="flex items-center justify-between pb-4 mb-4 border-b border-blue-100">
+                <h3 class="font-extrabold text-base text-slate-800 flex items-center gap-2">
+                    <i class="fa-solid fa-folder-plus text-mega-600"></i>
+                    تعریف پروژه جدید در مگابایت سیستم
+                </h3>
+                <button onclick="closeModal('addProjectModal')" class="p-2 rounded-xl text-slate-400 hover:bg-slate-100">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <form onsubmit="submitNewProject(event)" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 mb-1">نام پروژه <span class="text-rose-500">*</span></label>
+                    <input type="text" id="newProjName" required placeholder="مثلاً: اپلیکیشن موبایل مگابایت" class="w-full rounded-xl border border-blue-200 bg-mega-50/40 px-3.5 py-2.5 text-sm focus:border-mega-600 focus:bg-white focus:outline-none">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 mb-1">درصد پیشرفت اولیه</label>
+                    <input type="number" id="newProjProgress" min="0" max="100" value="25" required class="w-full rounded-xl border border-blue-200 bg-mega-50/40 px-3.5 py-2.5 text-sm font-bold focus:outline-none">
+                </div>
+                <div class="flex items-center justify-end gap-2 pt-2">
+                    <button type="button" onclick="closeModal('addProjectModal')" class="px-4 py-2.5 rounded-xl bg-slate-100 text-slate-700 text-xs font-bold">انصراف</button>
+                    <button type="submit" class="px-5 py-2.5 rounded-xl bg-mega-700 hover:bg-mega-800 text-white text-xs font-extrabold shadow">افزودن پروژه</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- 5. Modal: Reset Demo Data Confirmation -->
+    <div id="resetConfirmModal" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs hidden items-center justify-center p-4">
+        <div class="bg-white rounded-3xl max-w-sm w-full p-6 shadow-2xl border border-blue-100 text-center animate-fade-in">
+            <div class="w-14 h-14 rounded-2xl bg-blue-100 text-mega-700 flex items-center justify-center text-2xl mx-auto mb-3">
+                <i class="fa-solid fa-rotate"></i>
+            </div>
+            <h3 class="font-extrabold text-base text-slate-800 mb-1">بازنشانی داده‌های نمونه سامانه</h3>
+            <p class="text-xs text-slate-500 leading-relaxed mb-5">
+                آیا مایلید اطلاعات سامانه به حالت پیش‌فرض اولیه شرکت مگابایت سیستم بازگردد؟
+            </p>
+            <div class="flex items-center justify-center gap-2.5">
+                <button onclick="closeModal('resetConfirmModal')" class="flex-1 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold transition">انصراف</button>
+                <button onclick="confirmResetDemoData()" class="flex-1 py-2.5 rounded-xl bg-mega-700 hover:bg-mega-800 text-white text-xs font-extrabold transition shadow">بله، بازنشانی شود</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification Container -->
+    <div id="toastContainer" class="fixed bottom-5 left-5 z-50 space-y-2.5 max-w-sm w-full pointer-events-none no-print"></div>
+
+    <!-- ==========================================
+         APPLICATION JAVASCRIPT LOGIC
+         ========================================== -->
+    <script>
+        const STORAGE_KEY = 'MEGABYTE_SYSTEM_ACTIVITY_DB_V3';
+
+        // Helper: Convert English digits to Persian digits
+        function toPersianDigits(val) {
+            if (val === null || val === undefined) return '';
+            const persian = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
+            return String(val).replace(/[0-9]/g, w => persian[+w]);
+        }
+
+        // Helper: Format total minutes into "X ساعت و Y دقیقه"
+        function formatMinutesToPersian(totalMins) {
+            const hrs = Math.floor(totalMins / 60);
+            const mins = totalMins % 60;
+            if (hrs === 0) return `${toPersianDigits(mins)} دقیقه`;
+            if (mins === 0) return `${toPersianDigits(hrs)} ساعت`;
+            return `${toPersianDigits(hrs)} ساعت و ${toPersianDigits(mins)} دقیقه`;
+        }
+
+        // Default Pre-populated Realistic Data for Megabyte System (شرکت مگابایت سیستم)
+        function getDefaultState() {
+            return {
+                currentRole: 'employee', // 'employee' | 'manager' | 'ceo'
+                activeEmployeeId: 'emp-1',
+                announcement: {
+                    text: 'همکاران گرامی مگابایت سیستم: لطفاً تمامی گزارش‌های کارکرد روزانه و موانع احتمالی پروژه‌های بقچه و جاناجم را تا پایان ساعت کاری ثبت نمایید تا در جلسه صبحگاهی بررسی شود.',
+                    date: '۱۴۰۵/۰۷/۲۴',
+                    author: 'مدیرعامل مگابایت سیستم'
+                },
+                employees: [
+                    {
+                        id: 'emp-1',
+                        name: 'امیرحسین رضایی',
+                        role: 'طراح رابط کاربری و تدوینگر ویدیو',
+                        dept: 'واحد طراحی و تدوین',
+                        avatarColor: 'bg-mega-700'
+                    },
+                    {
+                        id: 'emp-2',
+                        name: 'سارا محمدی',
+                        role: 'توسعه‌دهنده فرانت‌اند و وردپرس',
+                        dept: 'واحد فنی و توسعه',
+                        avatarColor: 'bg-sky-600'
+                    },
+                    {
+                        id: 'emp-3',
+                        name: 'علی کریمی',
+                        role: 'برنامه‌نویس بک‌اند و امنیت شبکه',
+                        dept: 'واحد فنی و توسعه',
+                        avatarColor: 'bg-indigo-700'
+                    },
+                    {
+                        id: 'emp-4',
+                        name: 'مریم کاظمی',
+                        role: 'کارشناس سئو و استراتژی محتوا',
+                        dept: 'واحد سئو و محتوا',
+                        avatarColor: 'bg-blue-600'
+                    }
+                ],
+                projects: [
+                    { id: 'proj-1', name: 'پلتفرم بقچه (Boghche)', progress: 78 },
+                    { id: 'proj-2', name: 'فروشگاه اینترنتی جاناجم (Janajam)', progress: 85 },
+                    { id: 'proj-3', name: 'وب‌سایت و اتوماسیون مگابایت سیستم', progress: 92 },
+                    { id: 'proj-4', name: 'طراحی گرافیک و تدوین ویدیو مارکتینگ', progress: 65 },
+                    { id: 'proj-5', name: 'توسعه بک‌اند، سرور و امنیت شبکه', progress: 74 }
+                ],
+                tasks: [
+                    {
+                        id: 'task-101',
+                        employeeId: 'emp-1',
+                        project: 'پلتفرم بقچه (Boghche)',
+                        title: 'طراحی رابط کاربری صفحه تسویه حساب و تدوین تیزر معرفی بقچه',
+                        priority: 'critical',
+                        deadline: '۱۴۰۵/۰۷/۲۵',
+                        status: 'in_progress', // 'todo' | 'in_progress' | 'done'
+                        desc: 'رعایت کامل پالت رنگی جدید و آماده‌سازی نسخه موبایل و استوری اینستاگرام'
+                    },
+                    {
+                        id: 'task-102',
+                        employeeId: 'emp-1',
+                        project: 'وب‌سایت و اتوماسیون مگابایت سیستم',
+                        title: 'طراحی ست آیکون‌های اختصاصی خدمات شرکت مگابایت سیستم',
+                        priority: 'high',
+                        deadline: '۱۴۰۵/۰۷/۲۶',
+                        status: 'todo',
+                        desc: 'خروجی SVG با تم آبی و سفید سازمانی تحویل تیم فرانت‌اند شود.'
+                    },
+                    {
+                        id: 'task-103',
+                        employeeId: 'emp-2',
+                        project: 'فروشگاه اینترنتی جاناجم (Janajam)',
+                        title: 'بهینه‌سازی سرعت لود صفحات محصول و ریسپانسیو منوی موبایل',
+                        priority: 'high',
+                        deadline: '۱۴۰۵/۰۷/۲۵',
+                        status: 'in_progress',
+                        desc: 'امتیاز Core Web Vitals روی موبایل باید بالای ۸۵ قرار بگیرد.'
+                    },
+                    {
+                        id: 'task-104',
+                        employeeId: 'emp-3',
+                        project: 'توسعه بک‌اند، سرور و امنیت شبکه',
+                        title: 'پیاده‌سازی وب‌سرویس احراز هویت پیامکی و فایروال سرور اصلی',
+                        priority: 'critical',
+                        deadline: '۱۴۰۵/۰۷/۲۴',
+                        status: 'done',
+                        desc: 'تست کامل محدودیت نرخ درخواست (Rate Limit) انجام شود.'
+                    },
+                    {
+                        id: 'task-105',
+                        employeeId: 'emp-4',
+                        project: 'پلتفرم بقچه (Boghche)',
+                        title: 'تدوین استراتژی کلمات کلیدی و بهینه‌سازی لندینگ‌های اصلی',
+                        priority: 'normal',
+                        deadline: '۱۴۰۵/۰۷/۲۷',
+                        status: 'in_progress',
+                        desc: 'بررسی رقبا و ثبت متاتگ‌های جدید در پنل.'
+                    }
+                ],
+                logs: [
+                    {
+                        id: 'log-1',
+                        employeeId: 'emp-1',
+                        project: 'پلتفرم بقچه (Boghche)',
+                        date: '۱۴۰۵/۰۷/۲۴',
+                        title: 'بازطراحی کامل رابط کاربری داشبورد فروشندگان و تدوین ویدیوی آموزشی',
+                        hours: 5,
+                        minutes: 30,
+                        description: 'وایرفریم‌ها و طراحی نهایی صفحه پنل فروشندگان بقچه در فیگما تکمیل شد. همچنین تدوین اولیه ویدیوی ۶۰ ثانیه‌ای معرفی امکانات جدید انجام گردید.',
+                        subtasks: ['طراحی ریسپانسیو موبایل در فیگما', 'اصلاح رنگ‌بندی دکمه‌ها', 'تدوین سکانس اول تیزر تبلیغاتی'],
+                        progress: 80,
+                        status: 'pending', // 'pending' | 'approved' | 'revision'
+                        managerNote: '',
+                        hasBlocker: true,
+                        blockerDesc: 'لوگوی باکیفیت و فایل نریشن نهایی از سمت تیم محتوا هنوز تحویل نشده و رندر نهایی ویدیو متوقف مانده است.',
+                        blockerSeverity: 'critical', // 'low' | 'medium' | 'critical'
+                        blockerStatus: 'unresolved', // 'unresolved' | 'investigating' | 'resolved'
+                        blockerSolution: ''
+                    },
+                    {
+                        id: 'log-2',
+                        employeeId: 'emp-2',
+                        project: 'فروشگاه اینترنتی جاناجم (Janajam)',
+                        date: '۱۴۰۵/۰۷/۲۴',
+                        title: 'پیاده‌سازی قالب جدید صفحه محصول و رفع تداخل اسکریپت‌های سبد خرید',
+                        hours: 6,
+                        minutes: 15,
+                        description: 'کدنویسی بخش گالری تصاویر محصول و جدول مشخصات فنی در قالب وردپرس جاناجم انجام شد و سرعت بارگذاری ۴۰ درصد بهبود یافت.',
+                        subtasks: ['کدنویسی اسلایدر محصول', 'فشرده‌سازی فایل‌های CSS و JS', 'تست روی مرورگر سافاری و کروم'],
+                        progress: 90,
+                        status: 'approved',
+                        managerNote: 'عالی بود، سرعت لود موبایل بسیار خوب شده است.',
+                        hasBlocker: true,
+                        blockerDesc: 'کلید API درگاه پرداخت تستی روی سرور استیجینگ منقضی شده و امکان تست مرحله نهایی خرید وجود ندارد.',
+                        blockerSeverity: 'medium',
+                        blockerStatus: 'unresolved',
+                        blockerSolution: ''
+                    },
+                    {
+                        id: 'log-3',
+                        employeeId: 'emp-3',
+                        project: 'توسعه بک‌اند، سرور و امنیت شبکه',
+                        date: '۱۴۰۵/۰۷/۲۴',
+                        title: 'تنظیمات امنیتی سرور لینوکس، بک‌آپ‌گیری خودکار و بهینه‌سازی کوئری‌ها',
+                        hours: 7,
+                        minutes: 0,
+                        description: 'سرویس بک‌آپ روزانه دیتابیس‌های مگابایت سیستم راه‌اندازی شد و زمان پاسخگویی API لیست سفارشات از ۸۰۰ میلی‌ثانیه به ۱۲۰ میلی‌ثانیه کاهش یافت.',
+                        subtasks: ['کانفیگ فایروال و کلودفلر', 'ایندکس‌گذاری جداول دیتابیس', 'تست بازیابی بک‌آپ'],
+                        progress: 100,
+                        status: 'approved',
+                        managerNote: 'خسته نباشید، گزارش بسیار دقیق و کاملی بود.',
+                        hasBlocker: false,
+                        blockerDesc: '',
+                        blockerSeverity: 'low',
+                        blockerStatus: 'resolved',
+                        blockerSolution: ''
+                    },
+                    {
+                        id: 'log-4',
+                        employeeId: 'emp-4',
+                        project: 'وب‌سایت و اتوماسیون مگابایت سیستم',
+                        date: '۱۴۰۵/۰۷/۲۳',
+                        title: 'تحقیق کلمات کلیدی، نگارش ۳ مقاله تخصصی و لینک‌سازی داخلی',
+                        hours: 4,
+                        minutes: 45,
+                        description: 'ساختار خوشه‌ای محتوا برای خدمات طراحی سایت و اتوماسیون مگابایت سیستم تدوین شد و خطاهای کنسول گوگل بررسی گردید.',
+                        subtasks: ['تولید محتوای سئو شده', 'رفع خطاهای ۴۰۴ در سرچ کنسول'],
+                        progress: 85,
+                        status: 'approved',
+                        managerNote: 'مورد تایید است.',
+                        hasBlocker: true,
+                        blockerDesc: 'دسترسی ویرایش تگ‌های کنونیکال در بخش وبلاگ محدود شده بود.',
+                        blockerSeverity: 'low',
+                        blockerStatus: 'resolved',
+                        blockerSolution: 'دسترسی سطح ویرایشگر ارشد در پنل وردپرس برای کاربری شما فعال گردید.'
+                    },
+                    {
+                        id: 'log-5',
+                        employeeId: 'emp-1',
+                        project: 'طراحی گرافیک و تدوین ویدیو مارکتینگ',
+                        date: '۱۴۰۵/۰۷/۲۳',
+                        title: 'طراحی پوسترهای شبکه‌های اجتماعی و قالب استوری مگابایت سیستم',
+                        hours: 4,
+                        minutes: 20,
+                        description: 'طراحی ۶ قالب پست و استوری با هویت بصری آبی و سفید مگابایت سیستم انجام و تحویل واحد محتوا شد.',
+                        subtasks: ['طراحی قالب کاور ریلز', 'خروجی لایه‌باز فتوشاپ و فیگما'],
+                        progress: 100,
+                        status: 'approved',
+                        managerNote: 'طراحی بسیار تمیز و منطبق با برندبوک شرکت بود.',
+                        hasBlocker: false,
+                        blockerDesc: '',
+                        blockerSeverity: 'low',
+                        blockerStatus: 'resolved',
+                        blockerSolution: ''
+                    }
+                ]
+            };
+        }
+
+        // Global State & Timer Variables
+        let appState = loadState();
+        let tempSubtasks = ['طراحی رابط کاربری بخش جدید', 'تست ریسپانسیو موبایل و دسکتاپ'];
+        let timerSeconds = 0;
+        let timerInterval = null;
+        let isTimerRunning = false;
+
+        function loadState() {
+            try {
+                const raw = localStorage.getItem(STORAGE_KEY);
+                if (raw) {
+                    return JSON.parse(raw);
+                }
+            } catch (e) {
+                console.error('Error loading state:', e);
+            }
+            const def = getDefaultState();
+            saveState(def);
+            return def;
+        }
+
+        function saveState(stateToSave = appState) {
+            try {
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(stateToSave));
+            } catch (e) {
+                console.error('Error saving state:', e);
+            }
+        }
+
+        // Helper: Find employee object by ID
+        function getEmployeeById(empId) {
+            return appState.employees.find(e => e.id === empId) || appState.employees[0];
+        }
+
+        // Toast Notification System
+        function showToast(message, type = 'success') {
+            const container = document.getElementById('toastContainer');
+            const toast = document.createElement('div');
+            let colors = 'bg-mega-900 text-white border-mega-700';
+            let icon = 'fa-circle-check text-sky-300';
+
+            if (type === 'warning') {
+                colors = 'bg-amber-600 text-white border-amber-500';
+                icon = 'fa-triangle-exclamation text-amber-100';
+            } else if (type === 'danger') {
+                colors = 'bg-rose-600 text-white border-rose-500';
+                icon = 'fa-circle-exclamation text-rose-100';
+            }
+
+            toast.className = `pointer-events-auto flex items-center gap-3 px-4 py-3.5 rounded-2xl shadow-xl border ${colors} animate-fade-in text-xs sm:text-sm font-bold`;
+            toast.innerHTML = `
+                <i class="fa-solid ${icon} text-lg shrink-0"></i>
+                <span class="flex-1 leading-relaxed">${message}</span>
+            `;
+            container.appendChild(toast);
+
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                toast.style.transform = 'translateY(8px)';
+                toast.style.transition = 'all 0.25s ease';
+                setTimeout(() => toast.remove(), 260);
+            }, 3600);
+        }
+
+        // Modal Controls
+        function openModal(id) {
+            const el = document.getElementById(id);
+            if (el) {
+                el.classList.remove('hidden');
+                el.classList.add('flex');
+            }
+        }
+
+        function closeModal(id) {
+            const el = document.getElementById(id);
+            if (el) {
+                el.classList.add('hidden');
+                el.classList.remove('flex');
+            }
+        }
+
+        function openResetModal() {
+            openModal('resetConfirmModal');
+        }
+
+        function confirmResetDemoData() {
+            appState = getDefaultState();
+            saveState();
+            closeModal('resetConfirmModal');
+            renderAll();
+            showToast('داده‌های نمونه شرکت مگابایت سیستم با موفقیت بازنشانی شد.');
+        }
+
+        // Mobile Sidebar Drawer Toggle
+        function toggleMobileSidebar() {
+            const sidebar = document.getElementById('appSidebar');
+            const backdrop = document.getElementById('mobileSidebarBackdrop');
+            const isHidden = sidebar.classList.contains('translate-x-full');
+
+            if (isHidden) {
+                sidebar.classList.remove('translate-x-full');
+                backdrop.classList.remove('hidden');
+            } else {
+                sidebar.classList.add('translate-x-full');
+                backdrop.classList.add('hidden');
+            }
+        }
+
+        // Switch Role (Employee / Manager / CEO)
+        function switchRole(role) {
+            appState.currentRole = role;
+            saveState();
+            renderAll();
+
+            // Close mobile drawer if open
+            const sidebar = document.getElementById('appSidebar');
+            if (!sidebar.classList.contains('translate-x-full') && window.innerWidth < 1024) {
+                toggleMobileSidebar();
+            }
+
+            const roleNames = {
+                employee: 'پنل کارمند',
+                manager: 'پنل رئیس و مدیر فنی',
+                ceo: 'پنل کلان مدیرعامل'
+            };
+            showToast(`تغییر وضعیت به «${roleNames[role]}» انجام شد.`);
+        }
+
+        // Switch Active Employee
+        function changeActiveEmployee(empId) {
+            appState.activeEmployeeId = empId;
+            saveState();
+            renderAll();
+            const emp = getEmployeeById(empId);
+            showToast(`پروفایل فعال به «${emp.name}» تغییر یافت.`);
+        }
+
+        // Live Stopwatch / Work Timer Functions
+        function updateTimerDisplay() {
+            const hrs = String(Math.floor(timerSeconds / 3600)).padStart(2, '0');
+            const mins = String(Math.floor((timerSeconds % 3600) / 60)).padStart(2, '0');
+            const secs = String(timerSeconds % 60).padStart(2, '0');
+            const display = document.getElementById('liveTimerDisplay');
+            if (display) {
+                display.textContent = toPersianDigits(`${hrs} : ${mins} : ${secs}`);
+            }
+        }
+
+        function startWorkTimer() {
+            if (isTimerRunning) return;
+            isTimerRunning = true;
+            document.getElementById('btnTimerStart').disabled = true;
+            document.getElementById('btnTimerStart').classList.add('opacity-60');
+            document.getElementById('btnTimerPause').disabled = false;
+            document.getElementById('btnTimerPause').classList.remove('opacity-60');
+
+            const badge = document.getElementById('timerStatusBadge');
+            badge.textContent = 'در حال محاسبه زمان...';
+            badge.className = 'px-2.5 py-1 rounded-full text-[11px] font-bold bg-emerald-400/25 text-emerald-200 border border-emerald-300/30 timer-active-pulse';
+
+            timerInterval = setInterval(() => {
+                timerSeconds++;
+                updateTimerDisplay();
+            }, 1000);
+            showToast('تایمر ثبت کارکرد شما شروع به کار کرد.');
+        }
+
+        function pauseWorkTimer() {
+            if (!isTimerRunning) return;
+            isTimerRunning = false;
+            clearInterval(timerInterval);
+            document.getElementById('btnTimerStart').disabled = false;
+            document.getElementById('btnTimerStart').classList.remove('opacity-60');
+            document.getElementById('btnTimerPause').disabled = true;
+            document.getElementById('btnTimerPause').classList.add('opacity-60');
+
+            const badge = document.getElementById('timerStatusBadge');
+            badge.textContent = 'متوقف شده (موقت)';
+            badge.className = 'px-2.5 py-1 rounded-full text-[11px] font-bold bg-amber-400/25 text-amber-200';
+            showToast('تایمر به صورت موقت متوقف شد.', 'warning');
+        }
+
+        function addTestMinutesToTimer(minsToAdd) {
+            timerSeconds += minsToAdd * 60;
+            updateTimerDisplay();
+            showToast(`${toPersianDigits(minsToAdd)} دقیقه به تایمر کارکرد اضافه شد.`);
+        }
+
+        function finishTimerAndFillForm() {
+            if (isTimerRunning) {
+                pauseWorkTimer();
+            }
+            const totalMinutes = Math.max(15, Math.round(timerSeconds / 60));
+            const hrs = Math.floor(totalMinutes / 60);
+            const mins = totalMinutes % 60;
+
+            document.getElementById('logHoursInput').value = hrs;
+            document.getElementById('logMinutesInput').value = mins;
+
+            timerSeconds = 0;
+            updateTimerDisplay();
+            const badge = document.getElementById('timerStatusBadge');
+            badge.textContent = 'منتقل شده به فرم';
+            badge.className = 'px-2.5 py-1 rounded-full text-[11px] font-bold bg-sky-400/25 text-sky-200';
+
+            document.getElementById('empWorkLogFormCard').scrollIntoView({ behavior: 'smooth', block: 'start' });
+            document.getElementById('logTitleInput').focus();
+            showToast(`مدت زمان (${toPersianDigits(hrs)} ساعت و ${toPersianDigits(mins)} دقیقه) در فرم گزارش درج شد!`);
+        }
+
+        // Form Helpers (Employee Panel)
+        function setLogDatePreset(dateStr) {
+            document.getElementById('logDateInput').value = dateStr;
+        }
+
+        function updateProgressBadge(val) {
+            const badge = document.getElementById('logProgressBadge');
+            badge.textContent = `${toPersianDigits(val)}٪`;
+        }
+
+        function toggleBlockerFields(checked) {
+            const box = document.getElementById('blockerDetailsBox');
+            const desc = document.getElementById('blockerDescInput');
+            if (checked) {
+                box.classList.remove('hidden');
+                desc.setAttribute('required', 'required');
+            } else {
+                box.classList.add('hidden');
+                desc.removeAttribute('required');
+            }
+        }
+
+        function renderTempSubtasks() {
+            const container = document.getElementById('tempSubtasksContainer');
+            if (!container) return;
+            if (tempSubtasks.length === 0) {
+                container.innerHTML = `<span class="text-xs text-slate-400 italic">آیتمی اضافه نشده است.</span>`;
+                return;
+            }
+            container.innerHTML = tempSubtasks.map((item, idx) => `
+                <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-xl bg-white border border-blue-200 text-xs font-bold text-mega-800 shadow-2xs">
+                    <i class="fa-solid fa-check text-emerald-500 text-[10px]"></i>
+                    ${item}
+                    <button type="button" onclick="removeTempSubtask(${idx})" class="text-slate-400 hover:text-rose-500 mr-1">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </span>
+            `).join('');
+        }
+
+        function addTempSubtask() {
+            const input = document.getElementById('subtaskTempInput');
+            const val = input.value.trim();
+            if (!val) return;
+            tempSubtasks.push(val);
+            input.value = '';
+            renderTempSubtasks();
+        }
+
+        function removeTempSubtask(index) {
+            tempSubtasks.splice(index, 1);
+            renderTempSubtasks();
+        }
+
+        // Submit Employee Work Log
+        function submitEmployeeWorkLog(e) {
+            e.preventDefault();
+            const project = document.getElementById('logProjectInput').value;
+            const date = document.getElementById('logDateInput').value.trim() || '۱۴۰۵/۰۷/۲۴';
+            const title = document.getElementById('logTitleInput').value.trim();
+            const hours = parseInt(document.getElementById('logHoursInput').value, 10) || 0;
+            const minutes = parseInt(document.getElementById('logMinutesInput').value, 10) || 0;
+            const description = document.getElementById('logDescInput').value.trim();
+            const progress = parseInt(document.getElementById('logProgressInput').value, 10) || 0;
+            const hasBlocker = document.getElementById('hasBlockerToggle').checked;
+            const blockerDesc = document.getElementById('blockerDescInput').value.trim();
+            const severityRadio = document.querySelector('input[name="blockerSeverity"]:checked');
+            const blockerSeverity = severityRadio ? severityRadio.value : 'medium';
+
+            if (hours === 0 && minutes === 0) {
+                showToast('لطفاً مدت زمان کارکرد (ساعت یا دقیقه) را وارد کنید.', 'warning');
+                return;
+            }
+
+            const newLog = {
+                id: 'log-' + Date.now(),
+                employeeId: appState.activeEmployeeId,
+                project,
+                date,
+                title,
+                hours,
+                minutes,
+                description,
+                subtasks: [...tempSubtasks],
+                progress,
+                status: 'pending',
+                managerNote: '',
+                hasBlocker,
+                blockerDesc: hasBlocker ? blockerDesc : '',
+                blockerSeverity: hasBlocker ? blockerSeverity : 'low',
+                blockerStatus: hasBlocker ? 'unresolved' : 'resolved',
+                blockerSolution: ''
+            };
+
+            appState.logs.unshift(newLog);
+            saveState();
+
+            // Reset Form
+            document.getElementById('logTitleInput').value = '';
+            document.getElementById('logDescInput').value = '';
+            document.getElementById('hasBlockerToggle').checked = false;
+            document.getElementById('blockerDescInput').value = '';
+            toggleBlockerFields(false);
+            tempSubtasks = [];
+            renderTempSubtasks();
+
+            renderAll();
+
+            if (hasBlocker) {
+                showToast('گزارش کارکرد به همراه «اعلام مشکل/مانع» ثبت و با اولویت بالا به پنل رئیس ارسال شد!', 'warning');
+            } else {
+                showToast('گزارش فعالیت روزانه شما با موفقیت در سامانه مگابایت سیستم ثبت شد.');
+            }
+        }
+
+        // Quick Fill Form from an Assigned Task
+        function prefillLogFromTask(taskId) {
+            const task = appState.tasks.find(t => t.id === taskId);
+            if (!task) return;
+
+            document.getElementById('logProjectInput').value = task.project;
+            document.getElementById('logTitleInput').value = task.title;
+            document.getElementById('logDescInput').value = `انجام فعالیت‌های مرتبط با تسک «${task.title}»: `;
+            document.getElementById('empWorkLogFormCard').scrollIntoView({ behavior: 'smooth', block: 'start' });
+            document.getElementById('logDescInput').focus();
+            showToast('اطلاعات تسک در فرم ثبت گزارش قرار گرفت.');
+        }
+
+        // Update Task Status by Employee
+        function changeTaskStatus(taskId, newStatus) {
+            const task = appState.tasks.find(t => t.id === taskId);
+            if (!task) return;
+            task.status = newStatus;
+            saveState();
+            renderAll();
+            showToast('وضعیت تسک بروزرسانی شد.');
+        }
+
+        // Manager Actions: Approve / Request Revision on Log
+        function managerUpdateLogStatus(logId, newStatus) {
+            const log = appState.logs.find(l => l.id === logId);
+            if (!log) return;
+            log.status = newStatus;
+            const noteInput = document.getElementById(`mgrNoteInput-${logId}`);
+            if (noteInput && noteInput.value.trim()) {
+                log.managerNote = noteInput.value.trim();
+            } else if (newStatus === 'approved' && !log.managerNote) {
+                log.managerNote = 'گزارش بررسی و تایید شد. خداقوت.';
+            }
+            saveState();
+            renderAll();
+            if (newStatus === 'approved') {
+                showToast('گزارش کارکرد کارمند تایید شد.');
+            } else {
+                showToast('وضعیت گزارش به «نیاز به اصلاح» تغییر یافت.', 'warning');
+            }
+        }
+
+        // Manager Actions: Open Blocker Resolution Modal
+        function openResolveBlockerModal(logId) {
+            const log = appState.logs.find(l => l.id === logId);
+            if (!log) return;
+            const emp = getEmployeeById(log.employeeId);
+
+            document.getElementById('resolveModalLogId').value = log.id;
+            document.getElementById('resolveModalSubtitle').textContent = `کارمند: ${emp.name} | پروژه: ${log.project}`;
+            document.getElementById('resolveModalProblemBox').innerHTML = `
+                <p class="font-extrabold mb-1"><i class="fa-solid fa-circle-question ml-1"></i> شرح مشکل اعلام‌شده:</p>
+                <p>${log.blockerDesc}</p>
+            `;
+            document.getElementById('resolveModalSolutionInput').value = log.blockerSolution || '';
+            document.getElementById('resolveModalStatusSelect').value = log.blockerStatus === 'unresolved' ? 'resolved' : log.blockerStatus;
+
+            openModal('resolveBlockerModal');
+        }
+
+        function saveBlockerResolution(e) {
+            e.preventDefault();
+            const logId = document.getElementById('resolveModalLogId').value;
+            const solution = document.getElementById('resolveModalSolutionInput').value.trim();
+            const status = document.getElementById('resolveModalStatusSelect').value;
+
+            const log = appState.logs.find(l => l.id === logId);
+            if (!log) return;
+
+            log.blockerSolution = solution;
+            log.blockerStatus = status;
+            log.status = 'approved';
+            if (!log.managerNote) {
+                log.managerNote = 'مانع اعلام‌شده بررسی و دستورالعمل رفع آن ثبت گردید.';
+            }
+
+            saveState();
+            closeModal('resolveBlockerModal');
+            renderAll();
+            showToast('راه‌حل مدیر ثبت شد و در پنل کارمند قابل مشاهده است.');
+        }
+
+        // Manager Action: Assign New Task
+        function openAssignTaskModal() {
+            const empSelect = document.getElementById('taskModalEmployee');
+            const projSelect = document.getElementById('taskModalProject');
+
+            empSelect.innerHTML = appState.employees.map(e => `<option value="${e.id}">${e.name} (${e.role})</option>`).join('');
+            projSelect.innerHTML = appState.projects.map(p => `<option value="${p.name}">${p.name}</option>`).join('');
+
+            openModal('assignTaskModal');
+        }
+
+        function submitNewAssignedTask(e) {
+            e.preventDefault();
+            const employeeId = document.getElementById('taskModalEmployee').value;
+            const project = document.getElementById('taskModalProject').value;
+            const title = document.getElementById('taskModalTitle').value.trim();
+            const priority = document.getElementById('taskModalPriority').value;
+            const deadline = document.getElementById('taskModalDeadline').value.trim();
+            const desc = document.getElementById('taskModalDesc').value.trim();
+
+            appState.tasks.unshift({
+                id: 'task-' + Date.now(),
+                employeeId,
+                project,
+                title,
+                priority,
+                deadline,
+                status: 'todo',
+                desc: desc || 'طبق استانداردهای فنی مگابایت سیستم انجام و گزارش شود.'
+            });
+
+            saveState();
+            document.getElementById('taskModalTitle').value = '';
+            document.getElementById('taskModalDesc').value = '';
+            closeModal('assignTaskModal');
+            renderAll();
+
+            const emp = getEmployeeById(employeeId);
+            showToast(`تسک جدید برای «${emp.name}» تعریف و ارسال شد.`);
+        }
+
+        // CEO Actions: Add Employee, Add Project, Announcement, CSV Export
+        function openAddEmployeeModal() {
+            openModal('addEmployeeModal');
+        }
+
+        function submitNewEmployee(e) {
+            e.preventDefault();
+            const name = document.getElementById('newEmpName').value.trim();
+            const role = document.getElementById('newEmpRole').value.trim();
+            const dept = document.getElementById('newEmpDept').value;
+            const colors = ['bg-mega-700', 'bg-sky-600', 'bg-indigo-700', 'bg-blue-700', 'bg-teal-600'];
+            const avatarColor = colors[appState.employees.length % colors.length];
+
+            const newEmp = {
+                id: 'emp-' + Date.now(),
+                name,
+                role,
+                dept,
+                avatarColor
+            };
+
+            appState.employees.push(newEmp);
+            saveState();
+            document.getElementById('newEmpName').value = '';
+            document.getElementById('newEmpRole').value = '';
+            closeModal('addEmployeeModal');
+            renderAll();
+            showToast(`همکار جدید «${name}» به سامانه مگابایت سیستم اضافه شد.`);
+        }
+
+        function openAddProjectModal() {
+            openModal('addProjectModal');
+        }
+
+        function submitNewProject(e) {
+            e.preventDefault();
+            const name = document.getElementById('newProjName').value.trim();
+            const progress = parseInt(document.getElementById('newProjProgress').value, 10) || 0;
+
+            appState.projects.push({
+                id: 'proj-' + Date.now(),
+                name,
+                progress: Math.min(100, Math.max(0, progress))
+            });
+
+            saveState();
+            document.getElementById('newProjName').value = '';
+            closeModal('addProjectModal');
+            renderAll();
+            showToast(`پروژه «${name}» به لیست پروژه‌های شرکت اضافه شد.`);
+        }
+
+        function updateCompanyAnnouncement() {
+            const input = document.getElementById('ceoAnnouncementInput');
+            const text = input.value.trim();
+            if (!text) {
+                showToast('لطفاً متن اطلاعیه را وارد نمایید.', 'warning');
+                return;
+            }
+            appState.announcement = {
+                text,
+                date: '۱۴۰۵/۰۷/۲۴',
+                author: 'مدیرعامل مگابایت سیستم'
+            };
+            saveState();
+            input.value = '';
+            renderAll();
+            showToast('اطلاعیه جدید مدیرعامل در بالای تمامی پنل‌ها منتشر شد.');
+        }
+
+        function exportLogsToCSV() {
+            const headers = ['نام کارمند', 'واحد', 'پروژه', 'تاریخ', 'عنوان فعالیت', 'مدت کارکرد (ساعت)', 'مدت کارکرد (دقیقه)', 'درصد پیشرفت', 'وضعیت تایید', 'دارای مشکل؟', 'شرح مشکل', 'پاسخ مدیر'];
+            const rows = appState.logs.map(l => {
+                const emp = getEmployeeById(l.employeeId);
+                const statusMap = { approved: 'تایید شده', pending: 'در انتظار بررسی', revision: 'نیاز به اصلاح' };
+                return [
+                    emp.name,
+                    emp.dept,
+                    l.project,
+                    l.date,
+                    `"${(l.title || '').replace(/"/g, '""')}"`,
+                    l.hours,
+                    l.minutes,
+                    `${l.progress}%`,
+                    statusMap[l.status] || l.status,
+                    l.hasBlocker ? 'بله' : 'خیر',
+                    `"${(l.blockerDesc || '-').replace(/"/g, '""')}"`,
+                    `"${(l.blockerSolution || l.managerNote || '-').replace(/"/g, '""')}"`
+                ].join(',');
+            });
+
+            const csvContent = '\uFEFF' + [headers.join(','), ...rows].join('\n');
+            const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `Megabyte-System-Activity-Report.csv`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            showToast('فایل اکسل (CSV) گزارش فعالیت‌های مگابایت سیستم دانلود شد.');
+        }
+
+        // ==========================================
+        // RENDERING FUNCTIONS
+        // ==========================================
+
+        function renderHeaderAndSidebar() {
+            // 1. Role Switcher active state
+            ['employee', 'manager', 'ceo'].forEach(r => {
+                const btn = document.getElementById(`roleBtn-${r}`);
+                if (!btn) return;
+                if (appState.currentRole === r) {
+                    btn.className = 'role-switch-btn px-3 sm:px-4 py-2 rounded-xl text-xs sm:text-sm font-extrabold transition-all flex items-center justify-center gap-1.5 bg-white text-mega-900 shadow-md';
+                } else {
+                    btn.className = 'role-switch-btn px-3 sm:px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all flex items-center justify-center gap-1.5 text-blue-100 hover:bg-white/10';
+                }
+            });
+
+            // Show/hide panels
+            document.getElementById('panel-employee').classList.toggle('hidden', appState.currentRole !== 'employee');
+            document.getElementById('panel-manager').classList.toggle('hidden', appState.currentRole !== 'manager');
+            document.getElementById('panel-ceo').classList.toggle('hidden', appState.currentRole !== 'ceo');
+
+            // Unresolved blockers badge on Manager button
+            const unresolvedCount = appState.logs.filter(l => l.hasBlocker && l.blockerStatus === 'unresolved').length;
+            const mgrBadge = document.getElementById('headerManagerBadge');
+            if (unresolvedCount > 0) {
+                mgrBadge.textContent = toPersianDigits(unresolvedCount);
+                mgrBadge.classList.remove('hidden');
+                mgrBadge.classList.add('inline-flex');
+            } else {
+                mgrBadge.classList.add('hidden');
+                mgrBadge.classList.remove('inline-flex');
+            }
+
+            // Active Employee Quick Selector in Header
+            const empSelect = document.getElementById('activeEmployeeSelect');
+            empSelect.innerHTML = appState.employees.map(emp => `
+                <option value="${emp.id}" class="text-slate-900 font-bold" ${emp.id === appState.activeEmployeeId ? 'selected' : ''}>
+                    ${emp.name}
+                </option>
+            `).join('');
+
+            // Sidebar Profile Card based on active role
+            const profileCard = document.getElementById('sidebarProfileCard');
+            const activeEmp = getEmployeeById(appState.activeEmployeeId);
+
+            if (appState.currentRole === 'employee') {
+                profileCard.innerHTML = `
+                    <div class="flex items-center gap-3">
+                        <div class="w-11 h-11 rounded-2xl ${activeEmp.avatarColor} text-white flex items-center justify-center font-black text-base shadow">
+                            ${activeEmp.name.charAt(0)}
+                        </div>
+                        <div class="min-w-0 flex-1">
+                            <span class="text-[10px] font-extrabold text-mega-600 bg-white px-2 py-0.5 rounded-md border border-blue-100">کارمند فعال</span>
+                            <h4 class="font-extrabold text-sm text-slate-800 truncate mt-0.5">${activeEmp.name}</h4>
+                            <p class="text-[11px] text-slate-500 truncate">${activeEmp.role}</p>
+                        </div>
+                    </div>
+                `;
+            } else if (appState.currentRole === 'manager') {
+                profileCard.innerHTML = `
+                    <div class="flex items-center gap-3">
+                        <div class="w-11 h-11 rounded-2xl bg-mega-800 text-white flex items-center justify-center font-black text-base shadow">
+                            <i class="fa-solid fa-user-gear"></i>
+                        </div>
+                        <div class="min-w-0 flex-1">
+                            <span class="text-[10px] font-extrabold text-mega-700 bg-white px-2 py-0.5 rounded-md border border-blue-100">مدیریت اجرایی</span>
+                            <h4 class="font-extrabold text-sm text-slate-800 truncate mt-0.5">مهندس رادمان فرهمند</h4>
+                            <p class="text-[11px] text-slate-500 truncate">رئیس فنی و مدیر پروژه</p>
+                        </div>
+                    </div>
+                `;
+            } else {
+                profileCard.innerHTML = `
+                    <div class="flex items-center gap-3">
+                        <div class="w-11 h-11 rounded-2xl bg-mega-950 text-amber-300 flex items-center justify-center font-black text-base shadow">
+                            <i class="fa-solid fa-crown"></i>
+                        </div>
+                        <div class="min-w-0 flex-1">
+                            <span class="text-[10px] font-extrabold text-amber-700 bg-amber-50 px-2 py-0.5 rounded-md border border-amber-200">مدیریت ارشد</span>
+                            <h4 class="font-extrabold text-sm text-slate-800 truncate mt-0.5">دکتر کیوان مجیدی</h4>
+                            <p class="text-[11px] text-slate-500 truncate">مدیرعامل شرکت مگابایت سیستم</p>
+                        </div>
+                    </div>
+                `;
+            }
+
+            // Sidebar Navigation Links per Role
+            const navContainer = document.getElementById('sidebarNavLinks');
+            const navItemsByRole = {
+                employee: [
+                    { icon: 'fa-stopwatch', label: 'تایمر هوشمند کارکرد', target: 'timerSectionCard' },
+                    { icon: 'fa-pen-to-square', label: 'ثبت گزارش کار و اعلام مشکل', target: 'empWorkLogFormCard' },
+                    { icon: 'fa-list-check', label: 'تسک‌های محول شده به من', target: 'employeeAssignedTasksList' },
+                    { icon: 'fa-clock-rotate-left', label: 'سوابق گزارش‌ها و پاسخ مدیر', target: 'empHistorySection' }
+                ],
+                manager: [
+                    { icon: 'fa-triangle-exclamation text-rose-500', label: `رفع مشکلات کارمندان (${toPersianDigits(unresolvedCount)})`, target: 'mgrBlockersSection' },
+                    { icon: 'fa-clipboard-check', label: 'بررسی و تایید گزارش‌ها', target: 'mgrLogsReviewSection' },
+                    { icon: 'fa-list-check', label: 'مدیریت تسک‌های تیم', target: 'mgrTasksSection' },
+                    { icon: 'fa-plus-circle', label: 'ارجاع تسک جدید', action: 'openAssignTaskModal' }
+                ],
+                ceo: [
+                    { icon: 'fa-chart-pie', label: 'شاخص‌های کلیدی (KPI)', target: 'panel-ceo' },
+                    { icon: 'fa-chart-column', label: 'تحلیل عملکرد کارمندان', target: 'ceoAnalyticsSection' },
+                    { icon: 'fa-layer-group', label: 'وضعیت پروژه‌های شرکت', target: 'ceoProjectsSection' },
+                    { icon: 'fa-table-list', label: 'جدول جامع کل فعالیت‌ها', target: 'ceoMasterLogsSection' }
+                ]
+            };
+
+            navContainer.innerHTML = navItemsByRole[appState.currentRole].map((item, idx) => `
+                <button type="button" onclick="${item.action ? item.action + '()' : `scrollToSection('${item.target}')`}" class="w-full flex items-center gap-3 px-3.5 py-2.5 rounded-2xl text-xs font-bold transition ${idx === 0 ? 'bg-mega-600 text-white shadow-xs' : 'text-slate-600 hover:bg-blue-50 hover:text-mega-800'}">
+                    <i class="fa-solid ${item.icon} w-4 text-center"></i>
+                    <span>${item.label}</span>
+                </button>
+            `).join('');
+
+            // Sidebar Quick Stats
+            const totalMinutesAll = appState.logs.reduce((acc, l) => acc + (l.hours * 60 + l.minutes), 0);
+            const approvedLogsCount = appState.logs.filter(l => l.status === 'approved').length;
+
+            document.getElementById('sideStatHours').textContent = `${toPersianDigits(Math.round(totalMinutesAll / 60))} ساعت`;
+            document.getElementById('sideStatBlockers').textContent = `${toPersianDigits(unresolvedCount)} مورد باز`;
+            document.getElementById('sideStatApproved').textContent = `${toPersianDigits(approvedLogsCount)} گزارش`;
+
+            // Announcement Banner
+            const annBanner = document.getElementById('announcementBanner');
+            annBanner.innerHTML = `
+                <div class="flex items-start sm:items-center gap-3">
+                    <div class="w-9 h-9 rounded-xl bg-mega-100 text-mega-700 flex items-center justify-center shrink-0 mt-0.5 sm:mt-0">
+                        <i class="fa-solid fa-bullhorn"></i>
+                    </div>
+                    <div>
+                        <div class="flex items-center gap-2">
+                            <span class="text-xs font-extrabold text-mega-800">اطلاعیه مهم شرکت مگابایت سیستم</span>
+                            <span class="text-[10px] font-semibold text-slate-400">${appState.announcement.date}</span>
+                        </div>
+                        <p class="text-xs sm:text-sm text-slate-700 font-medium mt-0.5 leading-relaxed">${appState.announcement.text}</p>
+                    </div>
+                </div>
+                <span class="text-[11px] font-bold text-mega-700 bg-blue-50 px-2.5 py-1 rounded-lg border border-blue-100 shrink-0 self-end sm:self-center">
+                    ${appState.announcement.author}
+                </span>
+            `;
+        }
+
+        function scrollToSection(id) {
+            const el = document.getElementById(id);
+            if (el) {
+                el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+            const sidebar = document.getElementById('appSidebar');
+            if (!sidebar.classList.contains('translate-x-full') && window.innerWidth < 1024) {
+                toggleMobileSidebar();
+            }
+        }
+
+        // ==========================================
+        // RENDER PANEL 1: EMPLOYEE PANEL
+        // ==========================================
+        function renderEmployeePanel() {
+            const emp = getEmployeeById(appState.activeEmployeeId);
+            document.getElementById('empHeaderAvatar').textContent = emp.name.charAt(0);
+            document.getElementById('empHeaderAvatar').className = `w-14 h-14 rounded-2xl ${emp.avatarColor} text-white flex items-center justify-center text-xl font-black shadow-md`;
+            document.getElementById('empHeaderName').textContent = emp.name;
+            document.getElementById('empHeaderDept').textContent = emp.dept;
+            document.getElementById('empHeaderRole').textContent = emp.role;
+
+            // Populate Project Dropdown in Employee Log Form
+            const projSelect = document.getElementById('logProjectInput');
+            const currentProjVal = projSelect.value;
+            projSelect.innerHTML = appState.projects.map(p => `<option value="${p.name}">${p.name}</option>`).join('');
+            if (currentProjVal && appState.projects.some(p => p.name === currentProjVal)) {
+                projSelect.value = currentProjVal;
+            }
+
+            // Personal Stats for Active Employee
+            const myLogs = appState.logs.filter(l => l.employeeId === emp.id);
+            const myTotalMins = myLogs.reduce((acc, l) => acc + (l.hours * 60 + l.minutes), 0);
+            const myTasks = appState.tasks.filter(t => t.employeeId === emp.id);
+            const myOpenTasks = myTasks.filter(t => t.status !== 'done').length;
+            const myBlockers = myLogs.filter(l => l.hasBlocker).length;
+
+            document.getElementById('empStatTotalHours').textContent = formatMinutesToPersian(myTotalMins);
+            document.getElementById('empStatLogsCount').textContent = `${toPersianDigits(myLogs.length)} گزارش`;
+            document.getElementById('empStatOpenTasks').textContent = `${toPersianDigits(myOpenTasks)} تسک`;
+            document.getElementById('empStatMyBlockers').textContent = `${toPersianDigits(myBlockers)} مورد`;
+
+            // Render Assigned Tasks List
+            document.getElementById('empTasksCountBadge').textContent = `${toPersianDigits(myTasks.length)} تسک`;
+            const tasksContainer = document.getElementById('employeeAssignedTasksList');
+
+            if (myTasks.length === 0) {
+                tasksContainer.innerHTML = `
+                    <div class="text-center py-8 text-slate-400 text-xs">
+                        <i class="fa-solid fa-mug-hot text-2xl mb-2 block text-blue-300"></i>
+                        در حال حاضر تسک جدیدی برای شما ارجاع نشده است.
+                    </div>
+                `;
+            } else {
+                tasksContainer.innerHTML = myTasks.map(t => {
+                    const priorityMap = {
+                        critical: { label: 'بحرانی', cls: 'bg-rose-100 text-rose-700 border-rose-200' },
+                        high: { label: 'فوری', cls: 'bg-amber-100 text-amber-800 border-amber-200' },
+                        normal: { label: 'عادی', cls: 'bg-blue-50 text-mega-700 border-blue-200' }
+                    };
+                    const pr = priorityMap[t.priority] || priorityMap.normal;
+
+                    return `
+                        <div class="p-4 rounded-2xl border ${t.status === 'done' ? 'bg-slate-50 border-slate-200 opacity-80' : 'bg-mega-50/40 border-blue-100 hover:border-blue-300'} transition">
+                            <div class="flex items-start justify-between gap-2 mb-1.5">
+                                <span class="px-2 py-0.5 rounded-lg text-[10px] font-extrabold border ${pr.cls}">${pr.label}</span>
+                                <span class="text-[11px] text-slate-400 font-medium">مهلت: ${t.deadline}</span>
+                            </div>
+                            <h4 class="font-extrabold text-xs sm:text-sm text-slate-800 ${t.status === 'done' ? 'line-through text-slate-400' : ''}">${t.title}</h4>
+                            <p class="text-[11px] text-mega-700 font-semibold mt-0.5">${t.project}</p>
+                            <p class="text-xs text-slate-500 mt-1.5 leading-relaxed">${t.desc}</p>
+                            <div class="flex flex-wrap items-center justify-between gap-2 mt-3 pt-2.5 border-t border-blue-100/80">
+                                <select onchange="changeTaskStatus('${t.id}', this.value)" class="rounded-lg border border-blue-200 bg-white px-2.5 py-1 text-[11px] font-bold text-slate-700 focus:outline-none">
+                                    <option value="todo" ${t.status === 'todo' ? 'selected' : ''}>در انتظار شروع</option>
+                                    <option value="in_progress" ${t.status === 'in_progress' ? 'selected' : ''}>در حال انجام</option>
+                                    <option value="done" ${t.status === 'done' ? 'selected' : ''}>تکمیل شده ✓</option>
+                                </select>
+                                <button type="button" onclick="prefillLogFromTask('${t.id}')" class="text-[11px] font-extrabold text-mega-700 hover:text-mega-900 bg-blue-100/70 hover:bg-blue-200/70 px-2.5 py-1 rounded-lg transition flex items-center gap-1">
+                                    <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+                                    <span>انتقال به فرم گزارش</span>
+                                </button>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+            }
+
+            // Render Employee Work Logs History
+            const filterVal = document.getElementById('empHistoryFilterStatus').value;
+            let filteredMyLogs = [...myLogs];
+            if (filterVal === 'approved') filteredMyLogs = filteredMyLogs.filter(l => l.status === 'approved');
+            if (filterVal === 'pending') filteredMyLogs = filteredMyLogs.filter(l => l.status === 'pending');
+            if (filterVal === 'blocker') filteredMyLogs = filteredMyLogs.filter(l => l.hasBlocker);
+
+            const historyContainer = document.getElementById('employeeLogsHistoryContainer');
+            if (filteredMyLogs.length === 0) {
+                historyContainer.innerHTML = `
+                    <div class="text-center py-10 text-slate-400 text-sm">
+                        هیچ گزارش کارکردی با این فیلتر برای شما یافت نشد.
+                    </div>
+                `;
+            } else {
+                historyContainer.innerHTML = filteredMyLogs.map(log => {
+                    const statusBadges = {
+                        approved: `<span class="px-3 py-1 rounded-full text-xs font-extrabold bg-emerald-100 text-emerald-800 border border-emerald-200"><i class="fa-solid fa-check ml-1"></i>تایید شده توسط رئیس</span>`,
+                        pending: `<span class="px-3 py-1 rounded-full text-xs font-extrabold bg-amber-100 text-amber-800 border border-amber-200"><i class="fa-regular fa-clock ml-1"></i>در انتظار بررسی مدیر</span>`,
+                        revision: `<span class="px-3 py-1 rounded-full text-xs font-extrabold bg-rose-100 text-rose-800 border border-rose-200"><i class="fa-solid fa-rotate-left ml-1"></i>نیاز به اصلاح</span>`
+                    };
+
+                    return `
+                        <div class="p-5 rounded-2xl border ${log.hasBlocker && log.blockerStatus === 'unresolved' ? 'border-rose-300 bg-rose-50/20' : 'border-blue-100 bg-mega-50/30'} transition hover:shadow-xs">
+                            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-3 border-b border-blue-100">
+                                <div class="flex items-center gap-2.5 flex-wrap">
+                                    <span class="px-2.5 py-1 rounded-xl bg-mega-700 text-white text-xs font-bold">${log.project}</span>
+                                    <h4 class="font-extrabold text-sm sm:text-base text-slate-800">${log.title}</h4>
+                                </div>
+                                <div class="flex items-center gap-2 self-start sm:self-center">
+                                    <span class="text-xs font-bold text-slate-500 bg-white px-2.5 py-1 rounded-xl border border-blue-100">
+                                        <i class="fa-regular fa-calendar ml-1 text-mega-600"></i>${log.date}
+                                    </span>
+                                    ${statusBadges[log.status] || ''}
+                                </div>
+                            </div>
+
+                            <p class="text-xs sm:text-sm text-slate-700 mt-3 leading-relaxed">${log.description}</p>
+
+                            ${log.subtasks && log.subtasks.length > 0 ? `
+                                <div class="flex flex-wrap gap-1.5 mt-3">
+                                    ${log.subtasks.map(st => `
+                                        <span class="px-2.5 py-1 rounded-lg bg-white border border-blue-100 text-[11px] font-semibold text-slate-600">
+                                            <i class="fa-solid fa-check text-mega-600 ml-1"></i>${st}
+                                        </span>
+                                    `).join('')}
+                                </div>
+                            ` : ''}
+
+                            <div class="flex flex-wrap items-center justify-between gap-4 mt-4 pt-3 border-t border-blue-100/80 text-xs">
+                                <div class="flex items-center gap-4">
+                                    <span class="font-extrabold text-mega-900">
+                                        <i class="fa-solid fa-clock text-mega-600 ml-1"></i>
+                                        مدت کارکرد: ${formatMinutesToPersian(log.hours * 60 + log.minutes)}
+                                    </span>
+                                    <span class="font-extrabold text-slate-700">
+                                        پیشرفت تسک: <strong class="text-mega-700">${toPersianDigits(log.progress)}٪</strong>
+                                    </span>
+                                </div>
+                                ${log.managerNote ? `
+                                    <div class="text-xs font-bold text-emerald-800 bg-emerald-50 px-3 py-1.5 rounded-xl border border-emerald-200">
+                                        <i class="fa-solid fa-comment-dots ml-1"></i>
+                                        یادداشت مدیر: ${log.managerNote}
+                                    </div>
+                                ` : ''}
+                            </div>
+
+                            ${log.hasBlocker ? `
+                                <div class="mt-3 p-3.5 rounded-2xl ${log.blockerStatus === 'resolved' ? 'bg-emerald-50/90 border border-emerald-200' : 'bg-rose-50 border border-rose-200'}">
+                                    <div class="flex items-center justify-between mb-1">
+                                        <span class="text-xs font-extrabold ${log.blockerStatus === 'resolved' ? 'text-emerald-800' : 'text-rose-800'}">
+                                            <i class="fa-solid fa-triangle-exclamation ml-1"></i>
+                                            مشکل / مانع اعلام شده توسط شما:
+                                        </span>
+                                        <span class="px-2.5 py-0.5 rounded-full text-[11px] font-extrabold ${log.blockerStatus === 'resolved' ? 'bg-emerald-600 text-white' : 'bg-rose-600 text-white'}">
+                                            ${log.blockerStatus === 'resolved' ? 'برطرف شده توسط مدیر ✓' : 'در انتظار راه‌حل رئیس بخش'}
+                                        </span>
+                                    </div>
+                                    <p class="text-xs text-slate-700 leading-relaxed">${log.blockerDesc}</p>
+                                    ${log.blockerSolution ? `
+                                        <div class="mt-2 pt-2 border-t border-emerald-200/80 text-xs font-bold text-emerald-900">
+                                            <i class="fa-solid fa-reply ml-1 text-emerald-600"></i>
+                                            پاسخ و دستورالعمل رئیس بخش: ${log.blockerSolution}
+                                        </div>
+                                    ` : ''}
+                                </div>
+                            ` : ''}
+                        </div>
+                    `;
+                }).join('');
+            }
+        }
+
+        // ==========================================
+        // RENDER PANEL 2: MANAGER PANEL
+        // ==========================================
+        function renderManagerPanel() {
+            const openBlockers = appState.logs.filter(l => l.hasBlocker && l.blockerStatus !== 'resolved');
+            const resolvedBlockers = appState.logs.filter(l => l.hasBlocker && l.blockerStatus === 'resolved');
+            const pendingLogs = appState.logs.filter(l => l.status === 'pending');
+            const activeTasks = appState.tasks.filter(t => t.status !== 'done');
+
+            document.getElementById('mgrStatOpenBlockers').textContent = `${toPersianDigits(openBlockers.length)} مورد`;
+            document.getElementById('mgrStatPendingLogs').textContent = `${toPersianDigits(pendingLogs.length)} گزارش`;
+            document.getElementById('mgrStatActiveTasks').textContent = `${toPersianDigits(activeTasks.length)} تسک`;
+            document.getElementById('mgrStatResolvedBlockers').textContent = `${toPersianDigits(resolvedBlockers.length)} مورد`;
+
+            // Populate filter dropdowns in Manager Panel (preserving current selection)
+            const empFilterEl = document.getElementById('mgrFilterEmployee');
+            const currEmpFilter = empFilterEl.value || 'all';
+            empFilterEl.innerHTML = `<option value="all">همه کارمندان</option>` + appState.employees.map(e => `<option value="${e.id}">${e.name}</option>`).join('');
+            empFilterEl.value = currEmpFilter;
+
+            const projFilterEl = document.getElementById('mgrFilterProject');
+            const currProjFilter = projFilterEl.value || 'all';
+            projFilterEl.innerHTML = `<option value="all">همه پروژه‌ها</option>` + appState.projects.map(p => `<option value="${p.name}">${p.name}</option>`).join('');
+            projFilterEl.value = currProjFilter;
+
+            // 1. Render Blockers & Issues Hub
+            const blockerFilter = document.getElementById('mgrBlockerFilter').value;
+            let blockerLogs = appState.logs.filter(l => l.hasBlocker);
+            if (blockerFilter === 'unresolved') blockerLogs = blockerLogs.filter(l => l.blockerStatus !== 'resolved');
+            if (blockerFilter === 'resolved') blockerLogs = blockerLogs.filter(l => l.blockerStatus === 'resolved');
+
+            // Sort critical first
+            const sevOrder = { critical: 1, medium: 2, low: 3 };
+            blockerLogs.sort((a, b) => (sevOrder[a.blockerSeverity] || 2) - (sevOrder[b.blockerSeverity] || 2));
+
+            const blockersContainer = document.getElementById('managerBlockersList');
+            if (blockerLogs.length === 0) {
+                blockersContainer.innerHTML = `
+                    <div class="col-span-2 text-center py-8 bg-emerald-50/50 rounded-2xl border border-emerald-200 text-emerald-800 text-sm font-bold">
+                        <i class="fa-solid fa-circle-check text-2xl mb-1.5 block text-emerald-500"></i>
+                        هیچ مانع یا مشکل بازی در این بخش وجود ندارد. تمامی امور تیم بدون گلوگاه در جریان است!
+                    </div>
+                `;
+            } else {
+                blockersContainer.innerHTML = blockerLogs.map(log => {
+                    const emp = getEmployeeById(log.employeeId);
+                    const sevBadge = {
+                        critical: `<span class="px-2.5 py-0.5 rounded-full text-[11px] font-extrabold bg-rose-600 text-white">بحرانی / توقف کار!</span>`,
+                        medium: `<span class="px-2.5 py-0.5 rounded-full text-[11px] font-extrabold bg-amber-500 text-white">مهم / کندی کار</span>`,
+                        low: `<span class="px-2.5 py-0.5 rounded-full text-[11px] font-extrabold bg-blue-600 text-white">عادی / سوال فنی</span>`
+                    }[log.blockerSeverity] || '';
+
+                    const isResolved = log.blockerStatus === 'resolved';
+
+                    return `
+                        <div class="p-5 rounded-2xl border-2 ${isResolved ? 'border-emerald-200 bg-emerald-50/30' : 'border-rose-200 bg-rose-50/40'} flex flex-col justify-between">
+                            <div>
+                                <div class="flex items-center justify-between gap-2 mb-3">
+                                    <div class="flex items-center gap-2.5">
+                                        <div class="w-9 h-9 rounded-xl ${emp.avatarColor} text-white flex items-center justify-center font-bold text-sm">
+                                            ${emp.name.charAt(0)}
+                                        </div>
+                                        <div>
+                                            <h4 class="font-extrabold text-sm text-slate-800">${emp.name}</h4>
+                                            <p class="text-[11px] text-slate-500">${log.project} • ${log.date}</p>
+                                        </div>
+                                    </div>
+                                    ${isResolved ? `<span class="px-2.5 py-1 rounded-full text-[11px] font-extrabold bg-emerald-600 text-white">حل شده ✓</span>` : sevBadge}
+                                </div>
+
+                                <div class="p-3.5 rounded-xl bg-white border ${isResolved ? 'border-emerald-200' : 'border-rose-200'} mb-3">
+                                    <p class="text-[11px] font-bold text-slate-400 mb-1">در تسک: ${log.title}</p>
+                                    <p class="text-xs sm:text-sm font-bold text-slate-800 leading-relaxed">
+                                        <i class="fa-solid fa-quote-right text-rose-500 ml-1"></i>
+                                        ${log.blockerDesc}
+                                    </p>
+                                </div>
+
+                                ${log.blockerSolution ? `
+                                    <div class="p-3 rounded-xl bg-emerald-100/70 border border-emerald-300 text-xs text-emerald-950 mb-3">
+                                        <strong>راه‌حل ثبت‌شده شما:</strong> ${log.blockerSolution}
+                                    </div>
+                                ` : ''}
+                            </div>
+
+                            <div class="flex items-center justify-end gap-2 pt-2">
+                                <button onclick="openResolveBlockerModal('${log.id}')" class="w-full sm:w-auto px-4 py-2 rounded-xl ${isResolved ? 'bg-white border border-emerald-300 text-emerald-800 hover:bg-emerald-50' : 'bg-rose-600 hover:bg-rose-700 text-white shadow'} text-xs font-extrabold transition flex items-center justify-center gap-1.5">
+                                    <i class="fa-solid fa-reply"></i>
+                                    <span>${isResolved ? 'ویرایش راه‌حل ثبت‌شده' : 'ثبت راه‌حل و رفع مشکل کارمند'}</span>
+                                </button>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+            }
+
+            // 2. Render Work Log Review List
+            const searchQ = (document.getElementById('mgrSearchInput').value || '').trim().toLowerCase();
+            const statusF = document.getElementById('mgrFilterStatus').value;
+
+            let reviewLogs = appState.logs.filter(l => {
+                if (currEmpFilter !== 'all' && l.employeeId !== currEmpFilter) return false;
+                if (currProjFilter !== 'all' && l.project !== currProjFilter) return false;
+                if (statusF !== 'all' && l.status !== statusF) return false;
+                if (searchQ) {
+                    const matchTitle = l.title.toLowerCase().includes(searchQ);
+                    const matchDesc = l.description.toLowerCase().includes(searchQ);
+                    if (!matchTitle && !matchDesc) return false;
+                }
+                return true;
+            });
+
+            const logsContainer = document.getElementById('managerLogsContainer');
+            if (reviewLogs.length === 0) {
+                logsContainer.innerHTML = `
+                    <div class="text-center py-10 text-slate-400 text-sm">
+                        گزارشی مطابق با فیلترهای انتخابی شما یافت نشد.
+                    </div>
+                `;
+            } else {
+                logsContainer.innerHTML = reviewLogs.map(log => {
+                    const emp = getEmployeeById(log.employeeId);
+                    const statusBadge = {
+                        approved: `<span class="px-3 py-1 rounded-full text-xs font-extrabold bg-emerald-100 text-emerald-800">تایید شده ✓</span>`,
+                        pending: `<span class="px-3 py-1 rounded-full text-xs font-extrabold bg-amber-100 text-amber-800">در انتظار بررسی</span>`,
+                        revision: `<span class="px-3 py-1 rounded-full text-xs font-extrabold bg-rose-100 text-rose-800">نیاز به اصلاح</span>`
+                    }[log.status] || '';
+
+                    return `
+                        <div class="p-5 rounded-2xl border border-blue-100 bg-mega-50/30 hover:bg-white hover:shadow-sm transition">
+                            <div class="flex flex-col md:flex-row md:items-center justify-between gap-3 pb-3 border-b border-blue-100">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-11 h-11 rounded-2xl ${emp.avatarColor} text-white flex items-center justify-center font-black text-base shrink-0">
+                                        ${emp.name.charAt(0)}
+                                    </div>
+                                    <div>
+                                        <div class="flex items-center gap-2 flex-wrap">
+                                            <h4 class="font-extrabold text-sm sm:text-base text-slate-800">${emp.name}</h4>
+                                            <span class="text-[11px] font-bold text-mega-700 bg-blue-100/80 px-2.5 py-0.5 rounded-lg">${log.project}</span>
+                                            <span class="text-xs text-slate-400 font-medium">${log.date}</span>
+                                        </div>
+                                        <p class="text-xs sm:text-sm font-bold text-mega-900 mt-0.5">${log.title}</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-center gap-2 self-start md:self-center">
+                                    <span class="px-3 py-1 rounded-xl bg-white border border-blue-200 text-xs font-black text-mega-800">
+                                        <i class="fa-regular fa-clock ml-1 text-mega-600"></i>
+                                        ${formatMinutesToPersian(log.hours * 60 + log.minutes)}
+                                    </span>
+                                    ${statusBadge}
+                                </div>
+                            </div>
+
+                            <p class="text-xs sm:text-sm text-slate-700 mt-3 leading-relaxed">${log.description}</p>
+
+                            ${log.subtasks && log.subtasks.length > 0 ? `
+                                <div class="flex flex-wrap gap-1.5 mt-2.5">
+                                    ${log.subtasks.map(st => `
+                                        <span class="px-2.5 py-0.5 rounded-lg bg-white border border-blue-100 text-[11px] font-medium text-slate-600">✓ ${st}</span>
+                                    `).join('')}
+                                </div>
+                            ` : ''}
+
+                            ${log.hasBlocker ? `
+                                <div class="mt-3 p-3 rounded-xl bg-rose-50 border border-rose-200 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                                    <div class="text-xs text-rose-900">
+                                        <strong class="font-extrabold"><i class="fa-solid fa-triangle-exclamation ml-1 text-rose-600"></i>مشکل اعلام‌شده:</strong>
+                                        ${log.blockerDesc}
+                                    </div>
+                                    <button onclick="openResolveBlockerModal('${log.id}')" class="shrink-0 px-3 py-1.5 rounded-lg bg-rose-600 hover:bg-rose-700 text-white text-[11px] font-bold transition">
+                                        ${log.blockerSolution ? 'مشاهده/ویرایش راه‌حل' : 'ثبت راه‌حل'}
+                                    </button>
+                                </div>
+                            ` : ''}
+
+                            <!-- Manager Action Bar -->
+                            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mt-4 pt-3 border-t border-blue-100">
+                                <div class="flex-1 flex items-center gap-2">
+                                    <input type="text" id="mgrNoteInput-${log.id}" value="${log.managerNote || ''}" placeholder="ثبت بازخورد یا یادداشت مدیر برای این گزارش..." class="w-full rounded-xl border border-blue-200 bg-white px-3 py-2 text-xs focus:border-mega-600 focus:outline-none">
+                                </div>
+                                <div class="flex items-center gap-2 shrink-0">
+                                    <button onclick="managerUpdateLogStatus('${log.id}', 'approved')" class="px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-extrabold transition flex items-center gap-1.5 shadow-2xs">
+                                        <i class="fa-solid fa-check"></i>
+                                        <span>تایید گزارش</span>
+                                    </button>
+                                    <button onclick="managerUpdateLogStatus('${log.id}', 'revision')" class="px-3.5 py-2 rounded-xl bg-amber-100 hover:bg-amber-200 text-amber-900 text-xs font-bold transition flex items-center gap-1">
+                                        <i class="fa-solid fa-rotate-left"></i>
+                                        <span>نیاز به اصلاح</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+            }
+
+            // 3. Render Manager Assigned Tasks Table
+            const tasksWrap = document.getElementById('managerTasksTableWrap');
+            tasksWrap.innerHTML = `
+                <table class="w-full text-right border-collapse">
+                    <thead>
+                        <tr class="border-b border-blue-100 text-[11px] font-extrabold text-slate-400 uppercase">
+                            <th class="py-3 px-3">کارمند</th>
+                            <th class="py-3 px-3">عنوان تسک</th>
+                            <th class="py-3 px-3">پروژه</th>
+                            <th class="py-3 px-3">مهلت</th>
+                            <th class="py-3 px-3">وضعیت</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-blue-50 text-xs">
+                        ${appState.tasks.map(t => {
+                            const emp = getEmployeeById(t.employeeId);
+                            const stMap = {
+                                todo: `<span class="px-2.5 py-1 rounded-full bg-slate-100 text-slate-600 font-bold text-[11px]">در انتظار شروع</span>`,
+                                in_progress: `<span class="px-2.5 py-1 rounded-full bg-blue-100 text-mega-700 font-bold text-[11px]">در حال انجام</span>`,
+                                done: `<span class="px-2.5 py-1 rounded-full bg-emerald-100 text-emerald-700 font-bold text-[11px]">تکمیل شده ✓</span>`
+                            };
+                            return `
+                                <tr class="hover:bg-blue-50/40">
+                                    <td class="py-3 px-3 font-extrabold text-slate-800">${emp.name}</td>
+                                    <td class="py-3 px-3 font-medium text-slate-700">${t.title}</td>
+                                    <td class="py-3 px-3 text-mega-700 font-semibold">${t.project}</td>
+                                    <td class="py-3 px-3 text-slate-500">${t.deadline}</td>
+                                    <td class="py-3 px-3">${stMap[t.status] || ''}</td>
+                                </tr>
+                            `;
+                        }).join('')}
+                    </tbody>
+                </table>
+            `;
+        }
+
+        // ==========================================
+        // RENDER PANEL 3: CEO PANEL
+        // ==========================================
+        function renderCEOPanel() {
+            const totalMinutes = appState.logs.reduce((acc, l) => acc + (l.hours * 60 + l.minutes), 0);
+            const totalLogs = appState.logs.length;
+            const approvedLogs = appState.logs.filter(l => l.status === 'approved').length;
+            const approvalRate = totalLogs > 0 ? Math.round((approvedLogs / totalLogs) * 100) : 100;
+            const openBlockers = appState.logs.filter(l => l.hasBlocker && l.blockerStatus !== 'resolved').length;
+            const resolvedBlockers = appState.logs.filter(l => l.hasBlocker && l.blockerStatus === 'resolved').length;
+            const avgProjectProg = appState.projects.length > 0
+                ? Math.round(appState.projects.reduce((a, p) => a + p.progress, 0) / appState.projects.length)
+                : 0;
+
+            const avgMinsPerEmp = appState.employees.length > 0 ? Math.round(totalMinutes / appState.employees.length) : 0;
+
+            document.getElementById('ceoKpiTotalHours').textContent = formatMinutesToPersian(totalMinutes);
+            document.getElementById('ceoKpiAvgPerEmp').textContent = `میانگین هر کارمند: ${formatMinutesToPersian(avgMinsPerEmp)}`;
+            document.getElementById('ceoKpiApprovalRate').textContent = `${toPersianDigits(approvalRate)}٪`;
+            document.getElementById('ceoKpiTotalLogsText').textContent = `از مجموع ${toPersianDigits(totalLogs)} گزارش ثبت‌شده`;
+            document.getElementById('ceoKpiOpenBlockers').textContent = `${toPersianDigits(openBlockers)} مانع باز`;
+            document.getElementById('ceoKpiResolvedBlockersText').textContent = `${toPersianDigits(resolvedBlockers)} مورد تاکنون حل شده است`;
+            document.getElementById('ceoKpiProjectProgress').textContent = `${toPersianDigits(avgProjectProg)}٪`;
+            document.getElementById('ceoKpiActiveProjectsCount').textContent = `در ${toPersianDigits(appState.projects.length)} پروژه فعال مگابایت سیستم`;
+
+            // 1. Employee Performance Visual Bars
+            const empPerfContainer = document.getElementById('ceoEmployeePerformanceList');
+            const maxEmpMins = Math.max(60, ...appState.employees.map(e => {
+                return appState.logs.filter(l => l.employeeId === e.id).reduce((acc, l) => acc + (l.hours * 60 + l.minutes), 0);
+            }));
+
+            empPerfContainer.innerHTML = appState.employees.map(emp => {
+                const empLogs = appState.logs.filter(l => l.employeeId === emp.id);
+                const empMins = empLogs.reduce((acc, l) => acc + (l.hours * 60 + l.minutes), 0);
+                const empBlockers = empLogs.filter(l => l.hasBlocker && l.blockerStatus !== 'resolved').length;
+                const widthPercent = Math.min(100, Math.max(8, Math.round((empMins / maxEmpMins) * 100)));
+
+                return `
+                    <div class="p-4 rounded-2xl border border-blue-100 bg-mega-50/40">
+                        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-2.5">
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 rounded-xl ${emp.avatarColor} text-white flex items-center justify-center font-black text-sm">
+                                    ${emp.name.charAt(0)}
+                                </div>
+                                <div>
+                                    <div class="flex items-center gap-2">
+                                        <h4 class="font-extrabold text-sm text-slate-800">${emp.name}</h4>
+                                        <span class="text-[10px] font-bold px-2 py-0.5 rounded-md bg-blue-100 text-mega-800">${emp.dept}</span>
+                                    </div>
+                                    <p class="text-[11px] text-slate-500">${emp.role}</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-2 self-end sm:self-center">
+                                ${empBlockers > 0 ? `<span class="px-2.5 py-0.5 rounded-full bg-rose-100 text-rose-700 text-[11px] font-extrabold">${toPersianDigits(empBlockers)} مشکل باز</span>` : `<span class="px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-700 text-[11px] font-bold">بدون مانع</span>`}
+                                <span class="text-xs font-black text-mega-900 bg-white px-3 py-1 rounded-xl border border-blue-100">
+                                    ${formatMinutesToPersian(empMins)}
+                                </span>
+                            </div>
+                        </div>
+                        <div class="w-full h-2.5 bg-blue-100 rounded-full overflow-hidden">
+                            <div class="h-full bg-gradient-to-l from-mega-600 to-mega-800 rounded-full transition-all duration-500" style="width: ${widthPercent}%"></div>
+                        </div>
+                        <div class="flex items-center justify-between text-[11px] text-slate-500 mt-1.5">
+                            <span>تعداد گزارش‌ها: <strong>${toPersianDigits(empLogs.length)}</strong></span>
+                            <button onclick="appState.activeEmployeeId='${emp.id}';switchRole('employee');" class="text-mega-700 hover:underline font-bold no-print">
+                                مشاهده پنل این کارمند ←
+                            </button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            // 2. Projects Health & Progress Breakdown
+            const projContainer = document.getElementById('ceoProjectsBreakdownList');
+            projContainer.innerHTML = appState.projects.map(proj => {
+                const projLogs = appState.logs.filter(l => l.project === proj.name);
+                const projMins = projLogs.reduce((acc, l) => acc + (l.hours * 60 + l.minutes), 0);
+                const projBlockers = projLogs.filter(l => l.hasBlocker && l.blockerStatus !== 'resolved').length;
+
+                return `
+                    <div class="p-3.5 rounded-2xl border border-blue-100 bg-white">
+                        <div class="flex items-center justify-between mb-1.5">
+                            <span class="font-extrabold text-xs sm:text-sm text-slate-800">${proj.name}</span>
+                            <span class="text-xs font-black text-mega-700">${toPersianDigits(proj.progress)}٪</span>
+                        </div>
+                        <div class="w-full h-2 bg-slate-100 rounded-full overflow-hidden mb-2">
+                            <div class="h-full ${proj.progress >= 80 ? 'bg-emerald-500' : 'bg-mega-600'} rounded-full" style="width: ${proj.progress}%"></div>
+                        </div>
+                        <div class="flex items-center justify-between text-[11px] text-slate-500">
+                            <span>ساعات صرف‌شده: <strong class="text-slate-700">${formatMinutesToPersian(projMins)}</strong></span>
+                            ${projBlockers > 0 ? `<span class="text-rose-600 font-bold"><i class="fa-solid fa-circle-exclamation ml-1"></i>${toPersianDigits(projBlockers)} مانع باز</span>` : `<span class="text-emerald-600 font-semibold">روان و طبق برنامه</span>`}
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            // 3. Master Activity Table
+            const masterFilter = document.getElementById('ceoMasterFilterType').value;
+            let masterLogs = [...appState.logs];
+            if (masterFilter === 'blockers') masterLogs = masterLogs.filter(l => l.hasBlocker);
+            if (masterFilter === 'approved') masterLogs = masterLogs.filter(l => l.status === 'approved');
+
+            const masterTableWrap = document.getElementById('ceoMasterLogsTableWrap');
+            masterTableWrap.innerHTML = `
+                <table class="w-full text-right border-collapse">
+                    <thead>
+                        <tr class="border-b-2 border-blue-100 bg-mega-50/60 text-[11px] font-extrabold text-mega-900">
+                            <th class="py-3.5 px-3 rounded-tr-xl">کارمند</th>
+                            <th class="py-3.5 px-3">پروژه و تاریخ</th>
+                            <th class="py-3.5 px-3">چقدر کار کرده؟</th>
+                            <th class="py-3.5 px-3">چیکار کرده؟ (شرح فعالیت)</th>
+                            <th class="py-3.5 px-3">مشکلش کجاست؟ (مانع کاری)</th>
+                            <th class="py-3.5 px-3 rounded-tl-xl">وضعیت و نظر رئیس</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-blue-100 text-xs">
+                        ${masterLogs.map(log => {
+                            const emp = getEmployeeById(log.employeeId);
+                            return `
+                                <tr class="hover:bg-blue-50/40 align-top">
+                                    <td class="py-3.5 px-3 whitespace-nowrap">
+                                        <div class="font-extrabold text-slate-800">${emp.name}</div>
+                                        <div class="text-[11px] text-slate-400">${emp.dept}</div>
+                                    </td>
+                                    <td class="py-3.5 px-3 whitespace-nowrap">
+                                        <div class="font-bold text-mega-700">${log.project}</div>
+                                        <div class="text-[11px] text-slate-400">${log.date}</div>
+                                    </td>
+                                    <td class="py-3.5 px-3 whitespace-nowrap">
+                                        <span class="font-black text-slate-800 bg-blue-50 px-2.5 py-1 rounded-lg border border-blue-100 inline-block">
+                                            ${formatMinutesToPersian(log.hours * 60 + log.minutes)}
+                                        </span>
+                                        <div class="text-[10px] text-slate-500 mt-1">پیشرفت: ${toPersianDigits(log.progress)}٪</div>
+                                    </td>
+                                    <td class="py-3.5 px-3 max-w-xs">
+                                        <div class="font-bold text-slate-800 mb-0.5">${log.title}</div>
+                                        <p class="text-slate-600 leading-relaxed text-[11px]">${log.description}</p>
+                                    </td>
+                                    <td class="py-3.5 px-3 max-w-xs">
+                                        ${log.hasBlocker ? `
+                                            <div class="p-2 rounded-xl ${log.blockerStatus === 'resolved' ? 'bg-emerald-50 border border-emerald-200 text-emerald-900' : 'bg-rose-50 border border-rose-200 text-rose-900'} text-[11px]">
+                                                <span class="font-extrabold block mb-0.5">${log.blockerStatus === 'resolved' ? '✓ مشکل حل شد:' : '⚠️ مانع باز:'}</span>
+                                                ${log.blockerDesc}
+                                                ${log.blockerSolution ? `<div class="mt-1 pt-1 border-t border-emerald-200 font-bold text-emerald-800">پاسخ: ${log.blockerSolution}</div>` : ''}
+                                            </div>
+                                        ` : `<span class="text-emerald-600 font-semibold text-[11px]">بدون مشکل ✓</span>`}
+                                    </td>
+                                    <td class="py-3.5 px-3 whitespace-nowrap">
+                                        ${log.status === 'approved'
+                                            ? `<span class="px-2.5 py-1 rounded-full bg-emerald-100 text-emerald-800 font-bold text-[11px]">تایید شده</span>`
+                                            : log.status === 'revision'
+                                            ? `<span class="px-2.5 py-1 rounded-full bg-rose-100 text-rose-800 font-bold text-[11px]">نیاز به اصلاح</span>`
+                                            : `<span class="px-2.5 py-1 rounded-full bg-amber-100 text-amber-800 font-bold text-[11px]">در انتظار بررسی</span>`
+                                        }
+                                        ${log.managerNote ? `<div class="text-[11px] text-slate-500 mt-1 max-w-[160px] truncate" title="${log.managerNote}">${log.managerNote}</div>` : ''}
+                                    </td>
+                                </tr>
+                            `;
+                        }).join('')}
+                    </tbody>
+                </table>
+            `;
+        }
+
+        // Master Render Function
+        function renderAll() {
+            renderHeaderAndSidebar();
+            renderTempSubtasks();
+            renderEmployeePanel();
+            renderManagerPanel();
+            renderCEOPanel();
+            updateTimerDisplay();
+        }
+
+        // Initialize on Window Load
+        window.onload = function () {
+            renderAll();
+        };
+    </script>
+</body>
+</html>
